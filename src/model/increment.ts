@@ -1,7 +1,62 @@
-import { Platform } from '../platform'
-import { IncrementType } from '../options'
 import jetpack from 'fs-jetpack'
-import { progress, delay } from '../ui'
+import { IncrementType } from '../options'
+import { progress, question } from '../ui'
+
+export async function incrementVersion(type: IncrementType) {
+  const loader = progress('Search version in package.json')
+  const version = getCurrentVersion('package.json')
+}
+
+export function tryMigrateVersion(from: string) {
+  if (!from) return null
+
+  let parts = from.split('.')
+
+  // check that contains only numbers
+  for (let index = 0; index < parts.length; index++) {
+    const element = parts[index]
+    const parsed = parseInt(element)
+    if (!Number.isInteger(parsed)) {
+      return null
+    }
+  }
+
+  if (parts.length >= 3) {
+    parts = parts.slice(0, 3)
+  } else if (parts.length >= 2) {
+    parts = parts.slice(0, 2)
+    parts.push('0')
+  } else if (parts.length >= 1) {
+    parts = parts.slice(0, 1)
+    parts.push('0')
+    parts.push('0')
+  }
+
+  return parts.join('.')
+}
+
+export async function assertVersion(version: string) {
+  if (version) {
+    const parts = version.split('.')
+    if (parts.length === 3) {
+      return true
+    }
+  }
+
+  // TODO: add function for migration from not 3 digits to 3 digits
+  const migration = tryMigrateVersion(version)
+
+  if (migration) {
+    await question(
+      `Your version is [${version}], but expected semver 3 digits value, like [1.0.0]. Should we change it to [${migration}]?`,
+    )
+  } else {
+    console.error(`Your version is [${version}], but supported only 3 digits value like [1.0.0].`)
+    const reset = await question(
+      `We can't determinate your version type for properly migrating. Do you want reset it to [0.0.1]?`,
+    )
+  }
+}
 
 async function getCurrentVersion(file: string) {
   const raw = await jetpack.readAsync(file)
@@ -45,9 +100,4 @@ export function increment(from: string, type: IncrementType) {
   }
 
   return parts.join('.')
-}
-
-export async function incrementVersion(type: IncrementType) {
-  const loader = progress('Search version in package.json')
-  const version = getCurrentVersion('package.json')
 }

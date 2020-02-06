@@ -1,5 +1,6 @@
 import inquirer = require('inquirer')
 import ora from 'ora'
+import chalk from 'chalk'
 
 export async function question(title: string) {
   return inquirer.prompt([
@@ -31,4 +32,8 @@ export function progress(title: string) {
 
 export async function delay(millis: number) {
   return new Promise(resolve => setTimeout(resolve, millis))
+}
+
+export function error(title: string) {
+  return chalk(title).fontcolor('red')
 }

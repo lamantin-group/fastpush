@@ -1,4 +1,4 @@
-import { increment } from '../src/model/increment'
+import { increment, tryMigrateVersion } from '../src/model/increment'
 
 describe(`patch increments`, () => {
   test(`should increment patch`, () => {
@@ -50,5 +50,22 @@ describe(`corner cases incremenet`, () => {
   test(`should increment if version string bigger than 3 symbols`, () => {
     const version = increment('0.1.2.3', 'major')
     expect(version).toBe('1.0.0.0')
+  })
+})
+
+describe(`version migration`, () => {
+  test(`should migrate from 4 digits to 3 digits`, () => {
+    const version = tryMigrateVersion('1.2.3.4')
+    expect(version).toBe('1.2.3')
+  })
+
+  test(`should migrate from 2 digits to 3 digits`, () => {
+    const version = tryMigrateVersion('1.2')
+    expect(version).toBe('1.2.0')
+  })
+
+  test(`should not migrate if contains not numbers`, () => {
+    const version = tryMigrateVersion('1.2.a')
+    expect(version).toBe(null)
   })
 })

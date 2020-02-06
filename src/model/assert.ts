@@ -1,5 +1,5 @@
 import { Platform, platformTypes } from '../platform'
-import { select } from '../ui'
+import { select, question, error } from '../ui'
 
 export async function assertPlatforms(platforms: Platform[]): Promise<Platform[]> {
   if (!platforms || platforms.length <= 0) {
