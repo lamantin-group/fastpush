@@ -1,25 +1,16 @@
 /* eslint-disable prettier/prettier */
-import { Command, command, param, ParamOptions } from 'clime'
-import { Platform } from '../platform/Platform'
-import logo from 'asciiart-logo'
-import boxen, { BorderStyle } from 'boxen';
-
-const appDescription = boxen("publish - helper for publishing react-native projects via fastlane", {
-  padding: 1, 
-  borderStyle: BorderStyle.Round,
-})
-
-const PlatformParam: ParamOptions<Platform[]> = {
-  description: 'Select platform for publishing',
-  default: ['android', 'ios'],
-}
+import { Command, command, param } from 'clime';
+import { appDescription } from '..';
 
 @command({
   description: appDescription,
   brief: 'brief',
 })
 export default class extends Command {
-  execute(@param(PlatformParam) platform: Platform[]) {
-    return `Hello, ${platform}!`
+  execute(
+  @param({type: Boolean, required: false, default: false, description: "publish ios to AppStore"}) ios: boolean,
+    @param({type: Boolean, required: false, default: false, description: "publish android to Google Play"}) android: boolean,
+  ) {
+    return `ios?=${ios}\nandroid?=${android}`
   }
 }
