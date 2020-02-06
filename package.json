@@ -10,13 +10,17 @@
     "lint": "eslint src/**/*.ts --fix"
   },
   "dependencies": {
+    "@types/jest": "^25.1.1",
     "asciiart-logo": "^0.2.6",
     "boxen": "4.2.0",
     "chalk": "3.0.0",
     "clime": "^0.5.10",
     "commander": "^4.1.1",
+    "fs-jetpack": "^2.2.3",
     "inquirer": "7.0.4",
-    "ora": "4.0.3"
+    "jest": "25.1.0",
+    "ora": "4.0.3",
+    "ts-jest": "25.2.0"
   },
   "husky": {
     "hooks": {

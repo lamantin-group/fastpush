@@ -1,4 +1,5 @@
 import inquirer = require('inquirer')
+import ora from 'ora'
 
 export async function question(title: string) {
   return inquirer.prompt([
@@ -22,4 +23,12 @@ export async function select<T = string>(title: string, items: T[]) {
     },
   ])
   return result.items
+}
+
+export function progress(title: string) {
+  return ora().start(title)
+}
+
+export async function delay(millis: number) {
+  return new Promise(resolve => setTimeout(resolve, millis))
 }
