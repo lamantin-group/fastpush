@@ -1,0 +1,38 @@
+{
+  "name": "publish",
+  "version": "1.0.0",
+  "description": "Fastlane helper for publish builds",
+  "main": "src/index.ts",
+  "author": "whalemare",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "lint": "eslint src/**/*.ts --fix"
+  },
+  "dependencies": {
+    "boxen": "4.2.0",
+    "chalk": "3.0.0",
+    "clime": "^0.5.10",
+    "commander": "^4.1.1",
+    "inquirer": "7.0.4",
+    "ora": "4.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && git add .",
+      "pre-push": "npm test"
+    }
+  },
+  "devDependencies": {
+    "@types/inquirer": "^6.5.0",
+    "@typescript-eslint/eslint-plugin": "2.19.0",
+    "@typescript-eslint/parser": "2.19.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "husky": "^4.2.1",
+    "nodemon": "2.0.2",
+    "prettier": "1.19.1",
+    "typescript": "3.7.5"
+  }
+}
