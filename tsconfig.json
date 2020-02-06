@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es5", "es6", "dom"],
+    // "rootDir": "src",
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
@@ -13,7 +14,7 @@
     "resolveJsonModule": true
   },
   "include": [
-    "src/**/*", "test/**/*"
+    "src/**/*"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,13 +1,15 @@
 {
   "name": "publish",
-  "version": "1.0.0",
+  "version": "1.0.0.a",
   "description": "Fastlane helper for publish builds",
   "main": "src/index.ts",
   "author": "whalemare",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "lint": "eslint src/**/*.ts --fix"
+    "lint": "eslint src/**/*.ts --fix",
+    "build": "tsc",
+    "start": "ts-node ./src/index.ts android --track alpha"
   },
   "dependencies": {
     "@types/jest": "^25.1.1",

@@ -1,10 +1,13 @@
 import jetpack from 'fs-jetpack'
 import { IncrementType } from '../options'
-import { progress, question } from '../ui'
+import { progress, question, read, error } from '../ui'
 
 export async function incrementVersion(type: IncrementType) {
   const loader = progress('Search version in package.json')
-  const version = getCurrentVersion('package.json')
+  const version = await readVersionFrom('package.json')
+  loader.stop()
+  const currentVersion = await assertVersion(version)
+  return increment(currentVersion, type)
 }
 
 export function tryMigrateVersion(from: string) {
@@ -35,30 +38,11 @@ export function tryMigrateVersion(from: string) {
   return parts.join('.')
 }
 
-export async function assertVersion(version: string) {
-  if (version) {
-    const parts = version.split('.')
-    if (parts.length === 3) {
-      return true
-    }
-  }
-
-  // TODO: add function for migration from not 3 digits to 3 digits
-  const migration = tryMigrateVersion(version)
-
-  if (migration) {
-    await question(
-      `Your version is [${version}], but expected semver 3 digits value, like [1.0.0]. Should we change it to [${migration}]?`,
-    )
-  } else {
-    console.error(`Your version is [${version}], but supported only 3 digits value like [1.0.0].`)
-    const reset = await question(
-      `We can't determinate your version type for properly migrating. Do you want reset it to [0.0.1]?`,
-    )
-  }
-}
-
-async function getCurrentVersion(file: string) {
+/**
+ * Read version from file
+ * @param file input
+ */
+async function readVersionFrom(file: string) {
   const raw = await jetpack.readAsync(file)
   const fileJson = JSON.parse(raw)
   const version = fileJson['version'] as string
@@ -72,6 +56,8 @@ async function getCurrentVersion(file: string) {
  */
 export function increment(from: string, type: IncrementType) {
   if (!from) return null
+  console.log(from)
+
   let parts = from.split('.').map(int => parseInt(int))
   if (parts.length < 3) return null
 
@@ -100,4 +86,28 @@ export function increment(from: string, type: IncrementType) {
   }
 
   return parts.join('.')
+}
+
+export async function assertVersion(version: string) {
+  if (version) {
+    const parts = version.split('.')
+    if (parts.length === 3) {
+      return true
+    }
+  }
+
+  const migration = tryMigrateVersion(version)
+
+  if (migration) {
+    const shouldApplyMigration = await question(
+      `Your version is [${version}], but expected semver 3 digits value, like [1.0.0]. Should we change it to [${migration}]?`,
+    )
+    if (shouldApplyMigration) {
+      return migration
+    }
+  }
+
+  error(`Your version is ${version}, but supported only 3 digits value like 1.0.0`)
+  const newVersion = await read(`Enter version manualy and change from (${version}) ->`)
+  return await assertVersion(newVersion)
 }

@@ -26,6 +26,16 @@ export async function select<T = string>(title: string, items: T[]) {
   return result.items
 }
 
+export async function read(title: string) {
+  const result = await inquirer.prompt({
+    type: 'input',
+    name: 'answer',
+    message: title,
+    default: '0.0.1',
+  })
+  return result.answer as string
+}
+
 export function progress(title: string) {
   return ora().start(title)
 }
@@ -35,5 +45,5 @@ export async function delay(millis: number) {
 }
 
 export function error(title: string) {
-  return chalk(title).fontcolor('red')
+  console.error(chalk.red(title))
 }
