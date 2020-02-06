@@ -10,6 +10,7 @@
     "lint": "eslint src/**/*.ts --fix"
   },
   "dependencies": {
+    "asciiart-logo": "^0.2.6",
     "boxen": "4.2.0",
     "chalk": "3.0.0",
     "clime": "^0.5.10",
