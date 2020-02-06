@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { Options, option, ValidatorFunction } from 'clime'
+import { Options, option } from 'clime'
 
 export const incrementTypes = <const>['none', 'patch', 'minor', 'major']
 export type IncrementType = typeof incrementTypes[number]

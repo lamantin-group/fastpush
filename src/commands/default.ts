@@ -1,20 +1,19 @@
-/* eslint-disable prettier/prettier */
-import { Command, command, param, option } from 'clime';
-import { appDescription } from '..';
-import { PublishOptions } from '../options';
-import { publish } from '../model/publish';
-import { Platform } from '../platform';
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+import { Command, command, param } from 'clime'
+import { appDescription } from '..'
+import { publish } from '../model/publish'
+import { Platform } from '../platform'
+import { PublishOptions } from '../PublishOptions'
+
+const iosParam = { type: Boolean, required: false, default: false, description: 'publish ios to AppStore' }
+const androidParam = { type: Boolean, required: false, default: false, description: 'publish android to Google Play' }
 
 @command({
   description: appDescription,
   brief: 'brief',
 })
 export default class extends Command {
-  execute(
-  @param({type: Boolean, required: false, default: false, description: "publish ios to AppStore"}) ios: boolean,
-    @param({type: Boolean, required: false, default: false, description: "publish android to Google Play"}) android: boolean,
-    options: PublishOptions
-  ) {
+  execute(@param(iosParam) ios: boolean, @param(androidParam) android: boolean, options: PublishOptions) {
     const platforms: Platform[] = []
     if (ios) {
       platforms.push('ios')

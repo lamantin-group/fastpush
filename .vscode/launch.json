@@ -7,17 +7,19 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Build Project",
-      "program": "${workspaceFolder}/src/index.ts",
-      "preLaunchTask": "npm: build",
-      "args": ["android", "--track", "alpha"],
-      "sourceMaps": true,
-      "smartStep": true,
+      "name": "android --track alpha",         
+      "args": [
+          "src/index.ts", "android", "--track", "alpha",
+      ],
+      "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+      ],
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
-      "outFiles": [
-          "${workspaceFolder}/build/**/*.js"
-      ]
-    },
+		},
     {
       "type": "node",
       "name": "vscode-jest-tests",
