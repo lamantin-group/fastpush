@@ -25,4 +25,13 @@ export class PublishOptions extends Options {
     default: trackTypes[0],
   })
   track: TrackType
+
+  @option({
+    flag: 's',
+    description: 'distribute without asking',
+    placeholder: 'true|false',
+    required: false,
+    default: false,
+  })
+  silent: boolean
 }
