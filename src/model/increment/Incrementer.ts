@@ -8,7 +8,7 @@ export class Incrementer {
    */
   static increment(from: string, type: IncrementType) {
     if (!from) return null
-    console.log(from)
+    if (type === 'none') return from
 
     let parts = from.split('.').map(int => parseInt(int))
     if (parts.length < 3) return null
