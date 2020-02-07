@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Options, option } from 'clime'
+import { File, Directory } from 'clime/bld/castable'
 
 export const incrementTypes = <const>['none', 'patch', 'minor', 'major']
 export type IncrementType = typeof incrementTypes[number]
@@ -34,4 +35,13 @@ export class PublishOptions extends Options {
     default: false,
   })
   silent: boolean
+
+  @option({
+    flag: 'd',
+    description: 'path to root of project',
+    placeholder: 'path',
+    required: false,
+    default: '.',
+  })
+  directory: Directory
 }

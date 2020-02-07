@@ -9,7 +9,9 @@
       "request": "launch",
       "name": "android --track alpha",         
       "args": [
-          "src/index.ts", "android", "--track", "alpha",
+          "src/index.ts", "android", 
+          "--track", "alpha", 
+          "-i", "patch"
       ],
       "runtimeArgs": [
           "-r",
