@@ -17,6 +17,7 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
 
   const actions = providePlatformActions(selectedPlatforms, options.directory)
   actions.forEach(async action => {
+    await action.incrementBuildNumber()
     await action.setVersion(newVersion)
   })
 }

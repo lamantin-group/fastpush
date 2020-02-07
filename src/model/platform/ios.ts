@@ -1,5 +1,6 @@
 import { PlatformActions } from '.'
 import { Version } from '../increment'
+import { error } from '../../ui'
 
 export default class IOSPlatformActions implements PlatformActions {
   async setVersion(newVersion: string): Promise<Version[]> {
@@ -7,11 +8,13 @@ export default class IOSPlatformActions implements PlatformActions {
     return Promise.reject()
   }
 
-  async incrementBuildNumber(code: number): Promise<number[]> {
-    throw new Error('Method not implemented.')
+  async incrementBuildNumber(): Promise<number[]> {
+    error('incrementBuildNumber not implemented for ios')
+    return Promise.resolve([-1, -1])
   }
 
   getBuildNumber(): Promise<number> {
-    throw new Error('Method not implemented.')
+    error('getBuildNumber not implemented for ios')
+    return Promise.resolve(-1)
   }
 }
