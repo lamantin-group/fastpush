@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-import * as Path from 'path'
-import { CLI, Shim } from 'clime'
-import config from '../package.json'
 import boxen, { BorderStyle } from 'boxen'
+import { CLI, Shim } from 'clime'
+import * as Path from 'path'
+import config from '../package.json'
 CLI.commandModuleExtension = '.ts'
 
 export const appDescription = boxen('publish - helper for publishing react-native projects via fastlane', {

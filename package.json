@@ -1,6 +1,6 @@
 {
   "name": "publish",
-  "version": "1.0.0.a",
+  "version": "1.0.0",
   "description": "Fastlane helper for publish builds",
   "main": "src/index.ts",
   "author": "whalemare",
@@ -9,7 +9,12 @@
   "scripts": {
     "lint": "eslint src/**/*.ts --fix",
     "build": "tsc",
-    "start": "ts-node ./src/index.ts android --track alpha"
+    "start:android": "ts-node ./src/index.ts android --track alpha",
+    "start": "ts-node ./src/index.ts -h",
+    "start:ios": "ts-node ./src/index.ts ios --track alpha"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "dependencies": {
     "@types/jest": "^25.1.1",
@@ -36,7 +41,9 @@
     "@typescript-eslint/parser": "2.19.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
     "husky": "^4.2.1",
     "nodemon": "2.0.2",
     "prettier": "1.19.1",

@@ -3,19 +3,25 @@ import { progress, question, error, read } from '../../ui'
 import { readVersionFrom } from './readVersion'
 import { Incrementer } from './Incrementer'
 
-export async function incrementVersion(type: IncrementType) {
+export type Version = string
+
+/**
+ * Increment version and return array with [oldVersion, newVersion]
+ */
+export async function incrementVersion(type: IncrementType): Promise<Version[]> {
   const loader = progress('Search version in package.json')
   const version = await readVersionFrom('package.json')
   loader.stop()
   const currentVersion = await assertVersion(version)
-  return Incrementer.increment(currentVersion, type)
+  const newVersion = Incrementer.increment(currentVersion, type)
+  return [version, newVersion]
 }
 
-async function assertVersion(version: string) {
+async function assertVersion(version: string): Promise<Version> {
   if (version) {
     const parts = version.split('.')
     if (parts.length === 3) {
-      return version
+      return Promise.resolve(version)
     }
   }
 
@@ -26,7 +32,7 @@ async function assertVersion(version: string) {
       `Your version is [${version}], but expected semver 3 digits value, like [1.0.0]. Should we change it to [${migration}]?`,
     )
     if (shouldApplyMigration) {
-      return migration
+      return Promise.resolve(migration)
     }
   }
 

@@ -47,3 +47,7 @@ export async function delay(millis: number) {
 export function error(title: string) {
   console.error(chalk.red(title))
 }
+
+export function success(title: string) {
+  console.log(chalk.green(title))
+}

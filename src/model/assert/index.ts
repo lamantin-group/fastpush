@@ -1,4 +1,4 @@
-import { Platform, platformTypes } from '../../platform'
+import { Platform, platformTypes } from '../platform'
 import { select, question, error, read } from '../../ui'
 import { Incrementer } from '../increment/Incrementer'
 
