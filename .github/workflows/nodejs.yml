@@ -21,5 +21,11 @@ jobs:
     - run: yarn install
     - run: yarn build
     - run: yarn test
+
+    - uses: actions/checkout@master
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
       env:
         CI: true

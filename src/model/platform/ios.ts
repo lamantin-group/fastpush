@@ -6,4 +6,12 @@ export default class IOSPlatformActions implements PlatformActions {
     console.log('Set version ios', newVersion)
     return Promise.reject()
   }
+
+  async incrementBuildNumber(code: number): Promise<number[]> {
+    throw new Error('Method not implemented.')
+  }
+
+  getBuildNumber(): Promise<number> {
+    throw new Error('Method not implemented.')
+  }
 }

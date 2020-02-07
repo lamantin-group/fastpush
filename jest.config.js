@@ -6,4 +6,5 @@ module.exports = {
     '^lib/(.*)$': '<rootDir>/lib/$1',
   },
   moduleFileExtensions: ['js', 'ts', 'tsx', 'json'],
+  collectCoverage: true,
 }

@@ -18,23 +18,29 @@ export default class AndroidPlatformActions implements PlatformActions {
     }
   }
 
-  async incrementBuildNumber(): Promise<number> {
+  async getBuildNumber(): Promise<number> {
     const json = await g2js.parseFile(this.buildGradlePath)
     const versionCode = parseInt(json.android.defaultConfig.versionCode)
-    const newVersionCode = versionCode + 1
+    return versionCode
+  }
 
-    // TODO: write new version code to file
+  async getVersionName(): Promise<string> {
+    const json = await g2js.parseFile(this.buildGradlePath)
+    const versionName = json.android.defaultConfig.versionName
+    return versionName
+  }
 
-    return Promise.reject([versionCode, newVersionCode])
+  async incrementBuildNumber(): Promise<number[]> {
+    const buildNumber = await this.getBuildNumber()
+    this.changeField('versionCode', `${buildNumber + 1}`)
+    const newBuildNumber = await this.getBuildNumber()
+    return [buildNumber, newBuildNumber]
   }
 
   async setVersion(version: string): Promise<Version[]> {
-    const result = await g2js.parseFile(this.buildGradlePath)
-    const oldVersion = result.android.defaultConfig.versionName
-
+    const oldVersion = await this.getVersionName()
     this.changeField('versionName', `"${version}"`)
-    const newResult = await g2js.parseFile(this.buildGradlePath)
-    const newVersion = newResult.android.defaultConfig.versionName
+    const newVersion = await this.getVersionName()
     return [oldVersion, newVersion]
   }
 

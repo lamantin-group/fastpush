@@ -9,6 +9,8 @@ export type Platform = typeof platformTypes[number]
 
 export interface PlatformActions {
   setVersion(newVersion: string): Promise<Version[]>
+  incrementBuildNumber(code: number): Promise<number[]>
+  getBuildNumber(): Promise<number>
 }
 
 /**
