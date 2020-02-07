@@ -15,7 +15,7 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
   await jetpack.writeAsync(`${options.directory.cwd}/package.json`, packageContent)
   success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
 
-  const actions = providePlatformActions(selectedPlatforms)
+  const actions = providePlatformActions(selectedPlatforms, options.directory)
   actions.forEach(async action => {
     await action.setVersion(newVersion)
   })

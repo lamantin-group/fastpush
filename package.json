@@ -1,6 +1,6 @@
 {
   "name": "publish",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fastlane helper for publish builds",
   "main": "src/index.ts",
   "author": "whalemare",
@@ -25,6 +25,7 @@
     "clime": "^0.5.10",
     "commander": "^4.1.1",
     "fs-jetpack": "^2.2.3",
+    "gradle-to-js": "^2.0.0",
     "inquirer": "7.0.4",
     "jest": "25.1.0",
     "ora": "4.0.3",
