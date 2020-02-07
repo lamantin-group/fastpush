@@ -7,4 +7,5 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'ts', 'tsx', 'json'],
   collectCoverage: true,
+  coverageDirectory: './coverage/',
 }
