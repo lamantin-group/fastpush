@@ -11,7 +11,8 @@
     "build": "tsc",
     "start:android": "ts-node ./src/index.ts android --track alpha",
     "start": "ts-node ./src/index.ts -h",
-    "start:ios": "ts-node ./src/index.ts ios --track alpha"
+    "start:ios": "ts-node ./src/index.ts ios --track alpha",
+    "test": "jest"
   },
   "engines": {
     "node": ">=10.0.0"
