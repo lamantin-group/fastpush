@@ -1,6 +1,6 @@
 import { IncrementType } from '../../PublishOptions'
 import { progress, question, error, read } from '../../ui'
-import { readVersionFrom } from './readVersionFrom'
+import { readVersionFrom } from './readVersion'
 import { Incrementer } from './Incrementer'
 
 export async function incrementVersion(type: IncrementType) {
