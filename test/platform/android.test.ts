@@ -64,8 +64,9 @@ describe(`android platform actions`, () => {
   // })
 
   test.references.forEach(path => {
+    const referenceGradleFile = jetpack.read(path)
+
     beforeEach(() => {
-      const referenceGradleFile = jetpack.read(path)
       jetpack.write(jetpack.cwd() + '/test/assets/build.gradle', referenceGradleFile)
     })
 
@@ -73,8 +74,12 @@ describe(`android platform actions`, () => {
       const file = jetpack.cwd() + '/test/assets/build.gradle'
 
       const version = [nextInt(), nextInt(), nextInt()].join('.')
-      const [oldVersion, newVersion] = await new AndroidPlatformActions(options(file), () => file).setVersion(version)
-      expect(newVersion).to.equal(newVersion)
+      const actions = new AndroidPlatformActions(options(file), () => file)
+      const prevVersion = await actions.getVersionName()
+
+      const [oldVersion, newVersion] = await actions.setVersion(version)
+      expect(newVersion, 'Incorrect pass newVersion').to.equal(newVersion)
+      expect(oldVersion, 'Incorrect pass oldVersion').to.equal(prevVersion)
     })
   })
 

@@ -133,8 +133,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 1
-        versionName "3.1.5"
+        versionCode 9
+        versionName "4.4.6"
     }
     splits {
         abi {
@@ -186,6 +186,7 @@ android {
                 output.versionCodeOverride =
                         versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
             }
+
         }
     }
 }
