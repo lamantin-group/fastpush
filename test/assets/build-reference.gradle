@@ -142,7 +142,7 @@ android {
         applicationId "group.lamantin.sample.application.id"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionName 2
+        versionCode 2
         versionName "9.4.1"
         multiDexEnabled true
         ndk {

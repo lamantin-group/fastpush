@@ -133,8 +133,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 9
-        versionName "4.4.6"
+        versionName 10
+        versionName "0.1.5"
     }
     splits {
         abi {

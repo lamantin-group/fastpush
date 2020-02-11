@@ -64,22 +64,29 @@ describe(`android platform actions`, () => {
   // })
 
   test.references.forEach(path => {
+    const buildGradle = jetpack.cwd() + '/test/assets/build.gradle'
     const referenceGradleFile = jetpack.read(path)
 
     beforeEach(() => {
       jetpack.write(jetpack.cwd() + '/test/assets/build.gradle', referenceGradleFile)
     })
 
-    it(`should set version to build.gradle file ${path}`, async () => {
-      const file = jetpack.cwd() + '/test/assets/build.gradle'
-
+    it(`should setVersion to build.gradle file ${path}`, async () => {
       const version = [nextInt(), nextInt(), nextInt()].join('.')
-      const actions = new AndroidPlatformActions(options(file), () => file)
+      const actions = new AndroidPlatformActions(options(buildGradle), () => buildGradle)
       const prevVersion = await actions.getVersionName()
 
       const [oldVersion, newVersion] = await actions.setVersion(version)
       expect(newVersion, 'Incorrect pass newVersion').to.equal(newVersion)
       expect(oldVersion, 'Incorrect pass oldVersion').to.equal(prevVersion)
+    })
+
+    it(`should increment build number for ${path}`, async () => {
+      const actions = new AndroidPlatformActions(options(buildGradle), () => buildGradle)
+      const prevBuildNumber = await actions.getBuildNumber()
+      const [oldBuildNumber, newBuildNumber] = await actions.incrementBuildNumber()
+      expect(prevBuildNumber, 'Incorrect previous buildNumber').to.equal(oldBuildNumber)
+      expect(newBuildNumber, 'Incorrect new buildNumber').to.equal(oldBuildNumber + 1)
     })
   })
 
