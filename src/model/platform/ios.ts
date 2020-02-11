@@ -21,4 +21,11 @@ export default class IOSPlatformActions implements PlatformActions {
   async build(): Promise<void> {
     return Promise.resolve()
   }
+
+  async publish(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      reject()
+      // await this.fastlane(`supply track:${this.options.track}`)
+    })
+  }
 }

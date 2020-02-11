@@ -13,6 +13,7 @@ export interface PlatformActions {
   incrementBuildNumber(): Promise<number[]>
   getBuildNumber(): Promise<number>
   build(): Promise<void>
+  publish(): Promise<void>
 }
 
 /**

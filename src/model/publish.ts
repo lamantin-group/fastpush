@@ -20,5 +20,6 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
     const [oldBuildNumber, currentBuildNumber] = await action.incrementBuildNumber()
     const [oldVersion, currentVersion] = await action.setVersion(newVersion)
     await action.build()
+    await action.publish()
   })
 }
