@@ -43,14 +43,14 @@ export default class AndroidPlatformActions extends CommonPlatformActions {
     return versionName
   }
 
-  async incrementBuildNumber(): Promise<number[]> {
+  async incrementBuildNumber(): Promise<[number, number]> {
     const buildNumber = await this.getBuildNumber()
     this.changeField('versionCode', `${buildNumber + 1}`)
     const newBuildNumber = await this.getBuildNumber()
     return [buildNumber, newBuildNumber]
   }
 
-  async setVersion(version: string): Promise<Version[]> {
+  async setVersion(version: string): Promise<[Version, Version]> {
     const oldVersion = await this.getVersionName()
     this.changeField('versionName', `"${version}"`)
     const newVersion = await this.getVersionName()
@@ -85,7 +85,7 @@ export default class AndroidPlatformActions extends CommonPlatformActions {
   private changeField(field: string, value: string) {
     const file = jetpack.read(this.buildGradlePath)
     const regexp = new RegExp(`${field}.*`)
-    const newContent = file.replace(regexp, 'versionName ' + value)
+    const newContent = file.replace(regexp, `${field} ` + value)
     jetpack.write(this.buildGradlePath, newContent)
   }
 }

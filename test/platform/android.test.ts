@@ -85,8 +85,9 @@ describe(`android platform actions`, () => {
       const actions = new AndroidPlatformActions(options(buildGradle), () => buildGradle)
       const prevBuildNumber = await actions.getBuildNumber()
       const [oldBuildNumber, newBuildNumber] = await actions.incrementBuildNumber()
+
       expect(prevBuildNumber, 'Incorrect previous buildNumber').to.equal(oldBuildNumber)
-      expect(newBuildNumber, 'Incorrect new buildNumber').to.equal(oldBuildNumber + 1)
+      expect(newBuildNumber, 'Incorrect new buildNumber').to.equal(prevBuildNumber + 1)
     })
   })
 

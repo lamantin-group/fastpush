@@ -7,6 +7,37 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Mocha All",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": [
+          "--timeout",
+          "999999",
+          "--colors",
+          "ts-node/register",
+          "${workspaceFolder}/test/**/.ts"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+  },
+  {
+      "type": "node",
+      "request": "launch",
+      "name": "Mocha Current File",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": [
+          "-r",
+          "ts-node/register",
+          "${file}",
+          "--timeout",
+          "999999",
+          "--colors",
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+  },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "android alpha --project=temp",         
       "args": [
           "src/index.ts", "android", 
