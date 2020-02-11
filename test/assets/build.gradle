@@ -1,17 +1,7 @@
 apply plugin: "com.android.application"
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
-apply plugin: 'com.akaita.android.easylauncher'
-
-import com.android.build.OutputFile
-
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
-//project.ext.vectoricons = [
-//        iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf', 'FontAwesome.ttf' ] // Name of the font files you want to copy
-//]
-//
-//
-//apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+import com.android.build.OutputFile
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -139,33 +129,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "group.lamantin.sample.application.id"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionName 2
-        versionName "1.0.0"
+        applicationId "ru.whalemare.myholiday"
+        minSdkVersion 21
+        targetSdkVersion 29
         multiDexEnabled true
-        ndk {
-            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
-        }
-    }
-    signingConfigs {
-        def keystoreProperties = new Properties()
-         debug {
-             storeFile file("./file.jks")
-             keyAlias "android"
-             keyPassword "android"
-             storePassword "android"
-         }
-        release {
-            def keystorePropertiesFile = rootProject.file("keystore.properties")
-            keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
-            storeFile file("release.keystore.jks")
-            keyAlias keystoreProperties['key.alias']
-            keyPassword keystoreProperties['key.password']
-            storePassword keystoreProperties['keystore.password']
-        }
+        versionCode 9
+        versionName "0.1.5"
     }
     splits {
         abi {
@@ -175,11 +144,35 @@ android {
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
-    buildTypes {
+    signingConfigs {
+        def keystoreProperties = new Properties()
+
+        debug {
+            storeFile file('../keystores/debug.jks')
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
         release {
+            def keystorePropertiesFile = rootProject.file("keystores/release.secret.properties")
+            keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+            keyAlias 'myholiday'
+            keyPassword keystoreProperties['password']
+            storeFile file('../keystores/release.jks')
+            storePassword keystoreProperties['password']
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // Caution! In production, you need to generate your own keystore file.
+            // see https://facebook.github.io/react-native/docs/signed-apk-android.
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -187,7 +180,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // https://developer.android.com/studio/build/configure-apk-splits.html
-            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
+            def versionName NaN
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -196,51 +189,21 @@ android {
 
         }
     }
-
-    flavorDimensions "endpoint"
-    productFlavors {
-        dev {
-            dimension "endpoint"
-            applicationIdSuffix ".dev"
-        }
-
-        prod {
-            dimension "endpoint"
-            applicationIdSuffix ".prod"
-        }
-    }
-
-    packagingOptions {
-        pickFirst 'lib/x86/libc++_shared.so'
-        pickFirst 'lib/arm64-v8a/libc++_shared.so'
-        pickFirst 'lib/x86_64/libc++_shared.so'
-        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
 }
 
 dependencies {
-    implementation project(':react-native-config')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
-    implementation "com.google.android.gms:play-services-base:16.1.0"
-    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
 
     // Firebase
     implementation "com.google.firebase:firebase-core:16.0.9"
     implementation "com.google.firebase:firebase-auth:17.0.0"
     implementation "com.google.firebase:firebase-firestore:19.0.0"
     implementation "com.google.firebase:firebase-messaging:18.0.0"
+    implementation "com.google.firebase:firebase-functions:17.0.0"
 
-    implementation 'com.google.android.gms:play-services-wallet:16.0.0'
-
-    implementation 'com.yandex.android:mobmetricalib:3.8.0'
-    implementation 'com.android.installreferrer:installreferrer:1.0'
-
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+    
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
@@ -258,5 +221,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
 apply plugin: 'com.google.gms.google-services'

@@ -1,4 +1,4 @@
-import { Platform, providePlatformActions } from './platform'
+import { Platform, providePlatformActions, PlatformActions } from './platform'
 import { PublishOptions } from '../PublishOptions'
 import { assertPlatforms } from './assert'
 import { incrementVersion } from './increment'
@@ -10,14 +10,15 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
   const selectedPlatforms = await assertPlatforms(platforms)
 
   const [oldVersion, newVersion] = await incrementVersion(options.increment)
-  const packageContent = await parseFile(`${options.directory.cwd}/package.json`)
+  const packageContent = await parseFile(`${options.project.cwd}/package.json`)
   packageContent['version'] = newVersion
-  await jetpack.writeAsync(`${options.directory.cwd}/package.json`, packageContent)
+  await jetpack.writeAsync(`${options.project.cwd}/package.json`, packageContent)
   success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
 
-  const actions = providePlatformActions(selectedPlatforms, options.directory)
-  actions.forEach(async action => {
-    await action.incrementBuildNumber()
-    await action.setVersion(newVersion)
+  const actions = providePlatformActions(selectedPlatforms, options)
+  actions.forEach(async (action: PlatformActions) => {
+    const [oldBuildNumber, currentBuildNumber] = await action.incrementBuildNumber()
+    const [oldVersion, currentVersion] = await action.setVersion(newVersion)
+    await action.build()
   })
 }

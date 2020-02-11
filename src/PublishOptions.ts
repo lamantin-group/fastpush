@@ -37,11 +37,20 @@ export class PublishOptions extends Options {
   silent: boolean
 
   @option({
-    flag: 'd',
+    flag: 'p',
     description: 'path to root of project',
-    placeholder: 'path',
+    placeholder: 'project',
     required: false,
     default: '.',
   })
-  directory: Directory
+  project: Directory
+
+  @option({
+    flag: 'r',
+    description: 'percent rollout',
+    placeholder: '0..100',
+    required: false,
+    default: 100,
+  })
+  rollout: number
 }

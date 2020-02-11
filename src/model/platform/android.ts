@@ -2,19 +2,32 @@ import g2js from 'gradle-to-js/lib/parser'
 import { PlatformActions } from '.'
 import { Version } from '../increment'
 import jetpack = require('fs-jetpack')
+import shell from 'shelljs'
+import { progress, error } from '../../ui'
+import { PublishOptions } from '../../PublishOptions'
+import CommonPlatformActions from './common'
+import { PathProvider } from './PathProvider'
 
 /**
  * @param android - android project directory path
  */
-export default class AndroidPlatformActions implements PlatformActions {
-  constructor(private buildGradlePath: string) {
-    const type = jetpack.exists(buildGradlePath)
+export default class AndroidPlatformActions extends CommonPlatformActions {
+  buildGradlePath: string
+
+  constructor(
+    private options: PublishOptions,
+    private buildGradlePathProvider: PathProvider = () => this.platformDirectory + '/app/build.gradle',
+  ) {
+    super(options.project.fullName + '/android')
+
+    this.buildGradlePath = buildGradlePathProvider()
+    const type = jetpack.exists(this.buildGradlePath)
     if (type === 'dir') {
-      throw Error(`Expected path to build.gradle file, but ${buildGradlePath} is directory`)
+      throw Error(`Expected path to build.gradle file, but ${this.buildGradlePath} is directory`)
     } else if (type === 'other') {
-      throw Error(`Expected path to build.gradle file, but ${buildGradlePath} is not file`)
+      throw Error(`Expected path to build.gradle file, but ${this.buildGradlePath} is not file`)
     } else if (type === null || type === undefined) {
-      throw Error(`Expected path to build.gradle file, but ${buildGradlePath} is ${type}`)
+      throw Error(`Expected path to build.gradle file, but ${this.buildGradlePath} is ${type}`)
     }
   }
 
@@ -44,7 +57,32 @@ export default class AndroidPlatformActions implements PlatformActions {
     return [oldVersion, newVersion]
   }
 
-  changeField(field: string, value: string) {
+  async build(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      // await this.gradle('assembleRelease')
+      // todo: change to specify build type
+      await this.fastlane('run gradle task:assemble build_type:Release')
+      resolve()
+    })
+  }
+
+  async publish(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      await this.fastlane(`supply track:${this.options.track}`)
+    })
+  }
+
+  private async gradle(task: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      shell.cd(this.platformDirectory)
+      const command = `./gradlew ` + task
+
+      // TODO: validate user input for security policy
+      shell.exec(command.trim())
+    })
+  }
+
+  private changeField(field: string, value: string) {
     const file = jetpack.read(this.buildGradlePath)
     const regexp = new RegExp(`${field}.*`)
     const newContent = file.replace(regexp, 'versionName ' + value)

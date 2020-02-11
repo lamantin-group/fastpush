@@ -17,4 +17,8 @@ export default class IOSPlatformActions implements PlatformActions {
     error('getBuildNumber not implemented for ios')
     return Promise.resolve(-1)
   }
+
+  async build(): Promise<void> {
+    return Promise.resolve()
+  }
 }

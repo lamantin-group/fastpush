@@ -7,11 +7,11 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "android --track alpha",         
+      "name": "android alpha --project=temp",         
       "args": [
           "src/index.ts", "android", 
           "--track", "alpha", 
-          "-i", "patch"
+          "-p", "/Users/whalemare/Development/react-native/temp"
       ],
       "runtimeArgs": [
           "-r",
