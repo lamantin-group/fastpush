@@ -22,7 +22,7 @@ export interface PlatformActions {
 export function providePlatformActions(platforms: Platform[], options: PublishOptions): PlatformActions[] {
   const actions: PlatformActions[] = platforms.map(platform => {
     if (platform === 'ios') {
-      return new IOSPlatformActions()
+      return new IOSPlatformActions(options)
     } else if (platform == 'android') {
       // TODO: think about path, it can be incorrect
       return new AndroidPlatformActions(options)

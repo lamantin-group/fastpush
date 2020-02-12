@@ -9,10 +9,10 @@
   "scripts": {
     "lint": "eslint src/**/*.ts --fix",
     "build": "tsc",
-    "start:android": "ts-node ./src/index.ts android --track alpha",
-    "start:android:project": "ts-node ./src/index.ts android --track alpha -p /Users/whalemare/Development/react-native/myholiday",
+    "start:android": "ts-node ./src/index.ts android --track beta",
+    "start:android:project": "ts-node ./src/index.ts android --track beta -p /Users/whalemare/Development/react-native/myholiday",
     "start": "ts-node ./src/index.ts -h",
-    "start:ios": "ts-node ./src/index.ts ios --track alpha",
+    "start:ios": "ts-node ./src/index.ts ios --track beta",
     "test": "mocha -r ts-node/register test/**/*.ts"
   },
   "engines": {

@@ -1,8 +1,14 @@
 import { PlatformActions } from '.'
 import { Version } from '../increment'
 import { error } from '../../ui'
+import CommonPlatformActions from './common'
+import { PublishOptions } from '../../PublishOptions'
+import shell from 'shelljs'
+export default class IOSPlatformActions extends CommonPlatformActions {
+  constructor(options: PublishOptions) {
+    super(options.project.fullName + '/ios')
+  }
 
-export default class IOSPlatformActions implements PlatformActions {
   async setVersion(newVersion: string): Promise<Version[]> {
     console.log('Set version ios', newVersion)
     return Promise.reject()
@@ -19,7 +25,10 @@ export default class IOSPlatformActions implements PlatformActions {
   }
 
   async build(): Promise<void> {
-    return Promise.resolve()
+    return new Promise(async (resolve, reject) => {
+      await this.fastlane('run build_ios_app')
+      resolve()
+    })
   }
 
   async publish(): Promise<void> {

@@ -61,14 +61,15 @@ export default class AndroidPlatformActions extends CommonPlatformActions {
     return new Promise(async (resolve, reject) => {
       // await this.gradle('assembleRelease')
       // todo: change to specify build type
-      await this.fastlane('run gradle task:assemble build_type:Release')
+      await this.fastlane(`context lanes:'[one]'`)
+      // await this.fastlane('run gradle task:assemble build_type:Debug')
       resolve()
     })
   }
 
   async publish(): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      await this.fastlane(`supply track:${this.options.track}`)
+      await this.fastlane(`run supply track:${this.options.track}`)
     })
   }
 

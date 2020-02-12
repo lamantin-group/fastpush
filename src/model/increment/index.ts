@@ -8,9 +8,9 @@ export type Version = string
 /**
  * Increment version and return array with [oldVersion, newVersion]
  */
-export async function incrementVersion(type: IncrementType): Promise<Version[]> {
+export async function incrementVersion(file: string, type: IncrementType): Promise<Version[]> {
   const loader = progress('Search version in package.json')
-  const version = await readVersionFrom('package.json')
+  const version = await readVersionFrom(file)
   loader.stop()
   const currentVersion = await assertVersion(version)
   const newVersion = Incrementer.increment(currentVersion, type)
