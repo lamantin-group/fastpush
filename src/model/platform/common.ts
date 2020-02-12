@@ -1,6 +1,6 @@
 import shell from 'shelljs'
 import jetpack from 'fs-jetpack'
-import { Lane } from '../fastlane/Lane'
+import { Lane } from '../fastlane/lane'
 import { mapLanesToString } from '../fastlane'
 
 export default abstract class CommonPlatformActions implements CommonPlatformActions {

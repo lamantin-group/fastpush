@@ -1,4 +1,4 @@
-import { Lane } from './Lane'
+import { Lane } from './lane'
 
 export function mapLanesToString(lanes: Lane[]) {
   const laneString = lanes.map(lane => {
