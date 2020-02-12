@@ -61,7 +61,12 @@ export default class AndroidPlatformActions extends CommonPlatformActions {
     return new Promise(async (resolve, reject) => {
       // await this.gradle('assembleRelease')
       // todo: change to specify build type
-      await this.fastlane(`context lanes:'[one]'`)
+      await this.lanes([
+        {
+          name: 'one',
+          args: [{ name: 'argCustom', value: 'valueCustom' }],
+        },
+      ])
       // await this.fastlane('run gradle task:assemble build_type:Debug')
       resolve()
     })

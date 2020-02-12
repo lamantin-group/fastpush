@@ -1,5 +1,7 @@
 import shell from 'shelljs'
 import jetpack from 'fs-jetpack'
+import { Lane } from '../fastlane/Lane'
+import { mapLanesToString } from '../fastlane'
 
 export default abstract class CommonPlatformActions implements CommonPlatformActions {
   protected platformDirectory: string
@@ -30,5 +32,10 @@ export default abstract class CommonPlatformActions implements CommonPlatformAct
       jetpack.write(fastfilePath, fastfileOriginal)
       shell.cd(originalCwd)
     }
+  }
+
+  async lanes(lanes: Lane[]) {
+    const command = mapLanesToString(lanes)
+    return this.fastlane(`context ${command}`)
   }
 }
