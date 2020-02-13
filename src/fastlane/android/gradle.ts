@@ -1,5 +1,5 @@
-import { AndroidLane } from "../Lane";
 import { mapObjectToArgs } from "../mappers";
+import { AndroidLane } from ".";
 /**
  * The gradle task you want to execute, e.g. assemble, bundle or test.
  * For tasks such as assembleMyFlavorRelease you should use gradle(task: 'assemble', flavor: 'Myflavor', build_type: 'Release')
