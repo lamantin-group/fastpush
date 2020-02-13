@@ -11,3 +11,7 @@ export type Argument = {
 export type AndroidLane = {
   type: 'android'
 } & Lane
+
+export type IOSLane = Lane & {
+  type: 'ios'
+}
