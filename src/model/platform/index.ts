@@ -1,5 +1,5 @@
 import { PublishOptions } from '../../cli/PublishOptions'
-import { Version } from '../increment'
+import { Version } from '../../utils/increment'
 import AndroidPlatformActions from './android'
 import IOSPlatformActions from './ios'
 

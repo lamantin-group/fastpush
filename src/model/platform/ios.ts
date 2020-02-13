@@ -1,6 +1,6 @@
 import { PublishOptions } from '../../cli/PublishOptions'
 import { error } from '../../ui'
-import { Version } from '../increment'
+import { Version } from '../../utils/increment'
 import CommonPlatformActions from './common'
 
 export default class IOSPlatformActions extends CommonPlatformActions {

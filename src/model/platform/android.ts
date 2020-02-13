@@ -1,7 +1,7 @@
 import g2js from 'gradle-to-js/lib/parser'
 import shell from 'shelljs'
 import { PublishOptions } from '../../cli/PublishOptions'
-import { Version } from '../increment'
+import { Version } from '../../utils/increment'
 import CommonPlatformActions from './common'
 import { PathProvider } from './PathProvider'
 import jetpack = require('fs-jetpack')
