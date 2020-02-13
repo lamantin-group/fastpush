@@ -46,4 +46,4 @@ Run it via `ts-node my-own-publish-script.ts` :)
 `yarn add publish --dev`\
 or\
 `npm install publish --save-dev`
-3. Go to #Usage and write your own build process
+3. Go to [Usage](https://github.com/lamantin-group/publish#usage) and write your own build process

@@ -1,8 +1,8 @@
 import jetpack = require('fs-jetpack')
 import AndroidPlatformActions from '../../src/model/platform/android'
-import { PublishOptions } from '../../src/PublishOptions'
 import { Directory } from 'clime/bld/castable'
 import { expect } from 'chai'
+import { PublishOptions } from '../../src/cli/PublishOptions'
 
 function nextInt(): number {
   return Math.round(Math.random() * 10)
