@@ -1,7 +1,7 @@
-import { Lane, AndroidLane } from './lane'
-import jetpack = require('fs-jetpack')
 import shell from 'shelljs'
+import { AndroidLane } from './Lane'
 import { mapLanesToString } from './mappers'
+import jetpack = require('fs-jetpack')
 
 export function android(projectDirectory: string, ...lanes: AndroidLane[]) {
   const command = mapLanesToString(lanes)

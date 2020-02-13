@@ -2,7 +2,7 @@ import { PlatformActions } from '.'
 import { Version } from '../increment'
 import { error } from '../../ui'
 import CommonPlatformActions from './common'
-import { PublishOptions } from '../../PublishOptions'
+import { PublishOptions } from '../../cli/PublishOptions'
 import shell from 'shelljs'
 export default class IOSPlatformActions extends CommonPlatformActions {
   constructor(options: PublishOptions) {

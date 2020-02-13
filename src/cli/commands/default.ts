@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Command, command, param, ParamOptions } from 'clime'
 import { appDescription } from '..'
-import { publish } from '../model/publish'
-import { Platform } from '../model/platform'
+import { publish } from '../../model/publish'
+import { Platform } from '../../model/platform'
 import { PublishOptions } from '../PublishOptions'
 
 const iosParam: ParamOptions<boolean> = { type: Boolean, required: false, description: 'publish ios to AppStore' }

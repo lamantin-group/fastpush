@@ -1,5 +1,5 @@
 import { Platform, providePlatformActions, PlatformActions } from './platform'
-import { PublishOptions } from '../PublishOptions'
+import { PublishOptions } from '../cli/PublishOptions'
 import { assertPlatforms } from './assert'
 import { incrementVersion } from './increment'
 import { success } from '../ui'

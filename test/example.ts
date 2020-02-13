@@ -1,5 +1,6 @@
 import { fastlane, android } from '../src/model/fastlane'
-import { gradle, supply } from '../src/model/fastlane/lane/android'
+import { gradle } from '../src/model/fastlane/android/gradle'
+import { supply } from '../src/model/fastlane/android/supply'
 
 function publishAndroid() {
   console.log('Publish is starting')
@@ -8,7 +9,7 @@ function publishAndroid() {
     '/Users/whalemare/Development/react-native/myholiday',
     gradle('clean'),
     gradle('bundle', { build_type: 'Release' }),
-    supply({ track: 'beta' }),
+    // supply({ track: 'beta' }),
   )
 
   console.log('Published successfully')

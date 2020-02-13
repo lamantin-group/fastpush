@@ -1,7 +1,7 @@
 {
   "name": "publish",
-  "version": "1.0.2",
-  "description": "Fastlane helper for publish builds",
+  "version": "0.0.1",
+  "description": "Typed fastlane tool for publish builds",
   "main": "src/index.ts",
   "author": "whalemare",
   "license": "MIT",

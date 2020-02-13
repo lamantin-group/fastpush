@@ -1,12 +1,10 @@
 import g2js from 'gradle-to-js/lib/parser'
-import { PlatformActions } from '.'
-import { Version } from '../increment'
-import jetpack = require('fs-jetpack')
 import shell from 'shelljs'
-import { progress, error } from '../../ui'
-import { PublishOptions } from '../../PublishOptions'
+import { PublishOptions } from '../../cli/PublishOptions'
+import { Version } from '../increment'
 import CommonPlatformActions from './common'
 import { PathProvider } from './PathProvider'
+import jetpack = require('fs-jetpack')
 
 /**
  * @param android - android project directory path

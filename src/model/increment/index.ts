@@ -1,7 +1,10 @@
-import { IncrementType } from '../../PublishOptions'
-import { progress, question, error, read } from '../../ui'
-import { readVersionFrom } from './readVersion'
+import { IncrementType } from '../../cli/PublishOptions'
 import { Incrementer } from './Incrementer'
+import { readVersionFrom } from './readVersion'
+import { progress } from '../../ui/progress'
+import { question } from '../../ui/question'
+import { error } from '../../ui'
+import { read } from '../../ui/read'
 
 export type Version = string
 
