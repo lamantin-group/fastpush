@@ -1,6 +1,6 @@
 {
-  "name": "fastpush",
-  "version": "0.0.1",
+  "name": "@lamantin/fastpush",
+  "version": "0.0.2",
   "description": "Typed fastlane frontend for pushing builds to store",
   "main": "src/index.ts",
   "author": "whalemare",
