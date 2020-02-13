@@ -1,6 +1,6 @@
 import { gradle, supply, android } from '../fastlane/android'
 import { Platform } from '../model/platform'
-import AndroidPlatform from '../model/platform/AndroidPlatform'
+import { AndroidPlatform } from '../model/platform/AndroidPlatform'
 import { error, success } from '../ui'
 import { PublishOptions } from './PublishOptions'
 import { assertPlatforms, incrementPackageJson, Version } from './utils'
