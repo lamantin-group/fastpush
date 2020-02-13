@@ -3,7 +3,7 @@
 Painless publish React Native apps
 
 ### What is it
-`publish` - it is frontend for [fastlane.tools](https://fastlane.tools/), that can offer to you next solved fastlane problems:
+`fastpush` - it is frontend for [fastlane.tools](https://fastlane.tools/), that can offer to you next solved fastlane problems:
 
 * Use plain JavaScript and TypeScript for build process
 * Types and autocomplete for your actions and lanes
@@ -39,9 +39,9 @@ Run it via `ts-node my-own-publish-script.ts` :)
 
 1. Prepare environment needed for fastlane [iOS](https://docs.fastlane.tools/getting-started/ios/setup/) and/or [Android](https://docs.fastlane.tools/getting-started/ios/setup/) platforms
 2. Install this `publish` library with preferred package manager\
-`yarn add publish --dev`\
+`yarn add @lamantin/fastpush --dev`\
 or\
-`npm install publish --save-dev`
+`npm install @lamantin/fastpush --save-dev`
 3. Go to [Usage](https://github.com/lamantin-group/publish#usage) and write your own build process
 
 ### Roadmap
