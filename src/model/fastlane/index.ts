@@ -4,22 +4,23 @@ import { mapLanesToString } from './mappers'
 import jetpack = require('fs-jetpack')
 import child_process from 'child_process'
 
-export function android(lanes: AndroidLane[])
-export function android(lanes: AndroidLane[], projectDirectory: string)
+export function android(lanes: AndroidLane[]): void
+export function android(lanes: AndroidLane[], projectDirectory: string): void
 
 export function android(lanes: AndroidLane[], projectDirectory: string = jetpack.cwd()) {
   const command = mapLanesToString(lanes)
-  return fastlane(projectDirectory + '/android', `context ${command}`)
+  fastlane(projectDirectory + '/android', `context ${command}`)
 }
 
-// export function android(projectDirectory: string, ...lanes: AndroidLane[]) {}
+export function ios(lanes: IOSLane[]): void
+export function ios(lanes: IOSLane[], projectDirectory: string): void
 
-export function ios(projectDirectory: string, ...lanes: IOSLane[]) {
+export function ios(lanes: IOSLane[], projectDirectory: string = jetpack.cwd()) {
   const command = mapLanesToString(lanes)
-  return fastlane(projectDirectory + '/ios', `context ${command}`)
+  fastlane(projectDirectory + '/ios', `context ${command}`)
 }
 
-export async function fastlane(platformDirectory: string, task: string) {
+function fastlane(platformDirectory: string, task: string) {
   const originalCwd = jetpack.cwd()
   const fastfilePath = platformDirectory + '/fastlane/Fastfile'
   const contextFilePath = jetpack.path('assets/Context.rb')
