@@ -1,7 +1,7 @@
 {
-  "name": "publish",
+  "name": "fastpush",
   "version": "0.0.1",
-  "description": "Typed fastlane tool for publish builds",
+  "description": "Typed fastlane frontend for pushing builds to store",
   "main": "src/index.ts",
   "author": "whalemare",
   "license": "MIT",
