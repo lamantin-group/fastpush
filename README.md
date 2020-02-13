@@ -1,4 +1,4 @@
-# publish [![codecov](https://codecov.io/gh/lamantin-group/publish/branch/master/graph/badge.svg)](https://codecov.io/gh/lamantin-group/publish) [![status](https://img.shields.io/badge/status-experimental-orange.svg)](https://img.shields.io/badge/status-experimental-orange)
+# publish [![codecov](https://codecov.io/gh/lamantin-group/publish/branch/master/graph/badge.svg)](https://codecov.io/gh/lamantin-group/publish) ![api](https://img.shields.io/badge/api-experimental-orange.svg)
 
 Painless publish React Native apps
 
