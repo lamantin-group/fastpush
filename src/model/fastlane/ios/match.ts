@@ -30,7 +30,7 @@ export type MatchArgs = {
  * https://docs.fastlane.tools/actions/match/
  * fastlane run match - show documentation
  */
-export function match(type: MatchType, args: MatchArgs): IOSLane {
+export function match(type: MatchType, args?: MatchArgs): IOSLane {
   return {
     type: 'ios',
     name: 'match',

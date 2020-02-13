@@ -1,33 +1,44 @@
 import shell from 'shelljs'
-import { AndroidLane } from './Lane'
+import { AndroidLane, IOSLane } from './Lane'
 import { mapLanesToString } from './mappers'
 import jetpack = require('fs-jetpack')
+import child_process from 'child_process'
 
 export function android(projectDirectory: string, ...lanes: AndroidLane[]) {
   const command = mapLanesToString(lanes)
   return fastlane(projectDirectory + '/android', `context ${command}`)
 }
 
+export function ios(projectDirectory: string, ...lanes: IOSLane[]) {
+  const command = mapLanesToString(lanes)
+  return fastlane(projectDirectory + '/ios', `context ${command}`)
+}
+
 export async function fastlane(platformDirectory: string, task: string) {
   const originalCwd = jetpack.cwd()
   const fastfilePath = platformDirectory + '/fastlane/Fastfile'
-  const rubyPath = jetpack.path('assets/Context.rb')
+  const contextFilePath = jetpack.path('assets/Context.rb')
   // const ruby = jetpack.read(rubyPath)
   const fastfileOriginal = jetpack.read(fastfilePath)
-  const fastfileModifyed = `import '${rubyPath}'\n${fastfileOriginal}`
+  const fastfileModifyed = `import '${contextFilePath}'\n${fastfileOriginal}`
   jetpack.write(fastfilePath, fastfileModifyed)
 
   try {
     shell.cd(platformDirectory)
-    console.log(jetpack.cwd())
+    console.log('Execute fastlane in directory:', jetpack.cwd())
     const command = `bundle exec fastlane ` + task
 
+    // shell.exec(`bundle install`)
+
     // TODO: validate user input for security policy
-    shell.exec(command.trim())
+
+    // shelljs not supported interactive input/output so we should use child_process
+    child_process.execSync('cd ' + platformDirectory)
+    child_process.execSync(command.trim(), { stdio: 'inherit' })
   } catch (e) {
     throw e
   } finally {
     jetpack.write(fastfilePath, fastfileOriginal)
-    shell.cd(originalCwd)
+    child_process.execSync(originalCwd)
   }
 }
