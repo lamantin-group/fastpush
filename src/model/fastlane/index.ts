@@ -4,10 +4,15 @@ import { mapLanesToString } from './mappers'
 import jetpack = require('fs-jetpack')
 import child_process from 'child_process'
 
-export function android(projectDirectory: string, ...lanes: AndroidLane[]) {
+export function android(lanes: AndroidLane[])
+export function android(lanes: AndroidLane[], projectDirectory: string)
+
+export function android(lanes: AndroidLane[], projectDirectory: string = jetpack.cwd()) {
   const command = mapLanesToString(lanes)
   return fastlane(projectDirectory + '/android', `context ${command}`)
 }
+
+// export function android(projectDirectory: string, ...lanes: AndroidLane[]) {}
 
 export function ios(projectDirectory: string, ...lanes: IOSLane[]) {
   const command = mapLanesToString(lanes)

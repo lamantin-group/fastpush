@@ -8,12 +8,11 @@ import { match } from '../src/model/fastlane/ios/match'
 function publishAndroid() {
   console.log('Publish is starting')
 
-  android(
-    '/Users/whalemare/Development/react-native/myholiday',
+  android([
+    // some fastlane actions
     gradle('clean'),
     gradle('bundle', { build_type: 'Release' }),
-    // supply({ track: 'beta' }),
-  )
+  ])
 
   console.log('Published successfully')
 }
