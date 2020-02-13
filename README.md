@@ -17,20 +17,18 @@ Write your own file that hold logic of build process
 // my-own-publish-script.ts
 
 function publish() {
-  android(
-    '/Users/username/projects/name', // path to mobile project
+  android([
     gradle('clean'),
     gradle('bundle', { build_type: 'Release' }),
     supply({ track: 'beta' }),
-  )
+  ])
   console.log('android is published')
 
-  ios(
-    '/Users/username/projects/name', // path to mobile project
+  ios([
     match('appstore'),
     gym(),
     pilot(),
-  )
+  ])
   console.log("iOS is published")
 }
 ```
@@ -45,3 +43,8 @@ Run it via `ts-node my-own-publish-script.ts` :)
 or\
 `npm install publish --save-dev`
 3. Go to [Usage](https://github.com/lamantin-group/publish#usage) and write your own build process
+
+### Roadmap
+- [ ] Typings to mostly used actions and lanes
+- [ ] Use [semver](https://semver.org/) notation. \
+For now, library api have experimental status and can be changed without semver version updates.
