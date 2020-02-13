@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Command, command, param, ParamOptions } from 'clime'
 import { appDescription } from '..'
-import { publish } from '../../model/publish'
+import { publish } from '../publish'
 import { Platform } from '../../model/platform'
 import { PublishOptions } from '../PublishOptions'
 

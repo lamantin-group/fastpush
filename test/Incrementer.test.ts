@@ -1,5 +1,5 @@
-import { Incrementer } from '../src/model/increment/Incrementer'
 import { expect } from 'chai'
+import { Incrementer } from '../src/utils/increment/Incrementer'
 
 describe(`patch increments`, () => {
   it(`should increment patch`, () => {

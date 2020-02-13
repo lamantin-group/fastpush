@@ -1,27 +1,33 @@
-import { android, ios } from '../src/fastlane'
-import { gradle } from '../src/fastlane/android/gradle'
-import { gym } from '../src/fastlane/ios/gym'
-import { match } from '../src/fastlane/ios/match'
-import { pilot } from '../src/fastlane/ios/pilot'
+// import { gym } from '../src/fastlane/ios/gym'
+// import { match } from '../src/fastlane/ios/match'
+// import { pilot } from '../src/fastlane/ios/pilot'
+// import AndroidPlatform from '../src/model/platform/AndroidPlatform'
+// import { message } from '../src/ui'
 
-function publishAndroid() {
-  console.log('Publish is starting')
+// const project = '/Users/whalemare/Development/react-native/raduga'
 
-  android([
-    // some fastlane actions
-    gradle('clean'),
-    gradle('bundle', { build_type: 'Release' }),
-  ])
+// async function publishAndroid() {
+//   console.log('Publish is starting')
 
-  console.log('Published successfully')
-}
+//   const androidPlatform = new AndroidPlatform(project)
+//   const buildNumber = await androidPlatform.getBuildNumber()
+//   message(`Your build number [${buildNumber}]`)
 
-function publishIOS() {
-  console.log('Publish ios is starting')
+//   // android([
+//   //   // some fastlane actions
+//   //   gradle('clean'),
+//   //   gradle('bundle', { build_type: 'Release' }),
+//   // ])
 
-  ios([match('appstore'), gym(), pilot()], '/Users/whalemare/Development/react-native/raduga')
+//   console.log('Published successfully')
+// }
 
-  console.log('Published successfully')
-}
+// function publishIOS() {
+//   console.log('Publish ios is starting')
 
-// publishIOS()
+//   ios([match('appstore'), gym(), pilot()], project)
+
+//   console.log('Published successfully')
+// }
+
+// publishAndroid()

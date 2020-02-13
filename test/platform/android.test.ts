@@ -1,19 +1,13 @@
 import jetpack = require('fs-jetpack')
-import AndroidPlatformActions from '../../src/model/platform/android'
-import { Directory } from 'clime/bld/castable'
 import { expect } from 'chai'
-import { PublishOptions } from '../../src/cli/PublishOptions'
+import { AndroidPlatform } from '../../src/model/platform'
 
 function nextInt(): number {
   return Math.round(Math.random() * 10)
 }
 
-const options = (path: string) => {
-  const temp = new PublishOptions()
-  temp.project = {
-    fullName: path,
-  } as Directory
-  return temp
+function createAndroidPlatform(buildGradlePath: string) {
+  return new AndroidPlatform(null, null, buildGradlePath)
 }
 
 describe(`android platform actions`, () => {
@@ -34,25 +28,25 @@ describe(`android platform actions`, () => {
 
     it(`should setVersion to build.gradle file ${path}`, async () => {
       const version = [nextInt(), nextInt(), nextInt()].join('.')
-      const actions = new AndroidPlatformActions(options(buildGradle), () => buildGradle)
+      const actions = createAndroidPlatform(buildGradle)
       const prevVersion = await actions.getVersionName()
 
-      const [oldVersion, newVersion] = await actions.setVersion(version)
+      const [oldVersion, newVersion] = await actions.setVersionName(version)
       expect(newVersion, 'Incorrect pass newVersion').to.equal(newVersion)
       expect(oldVersion, 'Incorrect pass oldVersion').to.equal(prevVersion)
     })
 
     it(`should increment build number for ${path}`, async () => {
-      const actions = new AndroidPlatformActions(options(buildGradle), () => buildGradle)
+      const actions = createAndroidPlatform(buildGradle)
       const prevBuildNumber = await actions.getBuildNumber()
-      const [oldBuildNumber, newBuildNumber] = await actions.incrementBuildNumber()
+      const [oldBuildNumber, newBuildNumber] = await actions.incrementVersionCode()
 
       expect(prevBuildNumber, 'Incorrect previous buildNumber').to.equal(oldBuildNumber)
       expect(newBuildNumber, 'Incorrect new buildNumber').to.equal(prevBuildNumber + 1)
     })
 
     it(`provided build number should be number > 0`, async () => {
-      const actions = new AndroidPlatformActions(options(buildGradle), () => buildGradle)
+      const actions = createAndroidPlatform(buildGradle)
       const buildNumber = await actions.getBuildNumber()
       expect(buildNumber).to.be.above(0, `Provided build number ${buildNumber} not higher 0`)
     })
