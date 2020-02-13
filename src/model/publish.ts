@@ -1,11 +1,6 @@
-import { Platform, providePlatformActions, PlatformActions } from './platform'
 import { PublishOptions } from '../cli/PublishOptions'
-import { assertPlatforms } from './assert'
-import { incrementVersion } from './increment'
-import { success } from '../ui'
+import { Platform, providePlatformActions } from './platform'
 import jetpack = require('fs-jetpack')
-import { parseFile } from './file/read'
-import shell from 'shelljs'
 
 export async function publish(platforms: Platform[], options: PublishOptions) {
   console.log(options)

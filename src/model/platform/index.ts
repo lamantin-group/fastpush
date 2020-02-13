@@ -1,8 +1,7 @@
+import { PublishOptions } from '../../cli/PublishOptions'
+import { Version } from '../increment'
 import AndroidPlatformActions from './android'
 import IOSPlatformActions from './ios'
-import { Directory } from 'clime/bld/castable'
-import { Version } from '../increment'
-import { PublishOptions } from '../../cli/PublishOptions'
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const platformTypes = <const>['ios', 'android']

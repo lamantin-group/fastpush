@@ -1,1 +1,1 @@
-import * as cli from './cli'
+export * from './cli'

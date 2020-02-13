@@ -1,9 +1,8 @@
-import { PlatformActions } from '.'
-import { Version } from '../increment'
-import { error } from '../../ui'
-import CommonPlatformActions from './common'
 import { PublishOptions } from '../../cli/PublishOptions'
-import shell from 'shelljs'
+import { error } from '../../ui'
+import { Version } from '../increment'
+import CommonPlatformActions from './common'
+
 export default class IOSPlatformActions extends CommonPlatformActions {
   constructor(options: PublishOptions) {
     super(options.project.fullName + '/ios')
