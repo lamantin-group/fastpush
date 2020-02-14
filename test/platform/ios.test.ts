@@ -8,6 +8,12 @@ const iosProjectPath = jetpack
   .path()
 const iosPlatform = new IOSPlatform(null, iosProjectPath)
 
+function assertVersionName(version: string) {
+  version.split('.').forEach(part => {
+    chai.assert.isNumber(Number.parseInt(part), 'ios version number should include only numbers')
+  })
+}
+
 describe('ios platform actions', () => {
   it('should return build number of ios project', async () => {
     const result = await iosPlatform.getBuildNumber()
@@ -16,11 +22,13 @@ describe('ios platform actions', () => {
 
   it('should return versionName', async () => {
     const result = await iosPlatform.getVersionName()
-    const parts = result.split('.')
-    chai.assert.include(result, '.', 'versionName should include dots')
+    assertVersionName(result)
+  })
 
-    parts.map(part => {
-      chai.assert.isNumber(Number.parseInt(part), 'ios version number should include only numbers')
-    })
+  it('should setVersion', async () => {
+    const versionForUpdate = '3.4.5'
+    const [oldVersion, newVersion] = await iosPlatform.setVersionName(versionForUpdate)
+    chai.assert.equal(versionForUpdate, newVersion)
+    assertVersionName(oldVersion)
   })
 })

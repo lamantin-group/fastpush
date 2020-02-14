@@ -12,9 +12,11 @@ export class IOSPlatform {
     this.iosDirectory = iosDirectory
   }
 
-  async setVersion(newVersion: string): Promise<Version[]> {
-    console.log('Set version ios', newVersion)
-    return Promise.reject()
+  async setVersionName(newVersion: string): Promise<Version[]> {
+    const oldVersion = await this.getVersionName()
+    this.exec(`xcrun agvtool new-marketing-version ${newVersion}`)
+    const updatedVersion = await this.getVersionName()
+    return [oldVersion, updatedVersion]
   }
 
   async incrementBuildNumber(): Promise<number[]> {
@@ -42,7 +44,7 @@ export class IOSPlatform {
   }
 
   private exec(command: string): ShellString {
-    const result = shell.cd(this.iosDirectory).exec(command)
+    const result = shell.cd(this.iosDirectory).exec(command, { silent: true })
     if (result.code != 0) {
       throw result.stderr
     }
