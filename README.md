@@ -15,25 +15,27 @@ Write your own file that hold logic of build process
 
 ```ts
 // my-own-publish-script.ts
+import { android, gradle, AndroidPlatform, ui, supply, Incrementer } from "@lamantin/fastpush"
 
-function publish() {
+async function publish() {
+  const androidPlatform = new AndroidPlatform()
+
+  const [oldVersionCode, newVersionCode] = await androidPlatform.incrementVersionCode()
+  ui.success(`Success update build [${oldVersionCode}] -> [${newVersionCode}]`)
+
   android([
-    gradle('clean'),
-    gradle('bundle', { build_type: 'Release' }),
-    supply({ track: 'beta' }),
+    gradle("clean"),
+    gradle("assemble", {
+      build_type: "Release",
+    }),
+    supply({ track: "beta" }),
   ])
-  console.log('android is published')
-
-  ios([
-    match('appstore'),
-    gym(),
-    pilot(),
-  ])
-  console.log("iOS is published")
 }
+
+publish()
 ```
 
-Run it via `ts-node my-own-publish-script.ts` :)
+Run it via `ts-node my-own-publish-script.ts`
 
 ### Setup
 
