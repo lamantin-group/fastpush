@@ -18,6 +18,7 @@
   "private": false,
   "scripts": {
     "prepublish": "npm version patch && yarn build && cp -r assets build",
+    "postpublish": "git push",
     "lint": "eslint src/**/*.ts --fix",
     "build": "tsc",
     "start:help": "ts-node ./src/index.ts --help",
