@@ -48,8 +48,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && git add .",
-      "pre-push": "npm test"
+      "pre-commit": "yarn lint && git add ."
     }
   },
   "devDependencies": {
