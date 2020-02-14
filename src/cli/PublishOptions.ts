@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Options, option } from 'clime'
-import { File, Directory } from 'clime/bld/castable'
+import { Directory } from 'clime/bld/castable'
 
 export const incrementTypes = <const>['none', 'patch', 'minor', 'major']
 export type IncrementType = typeof incrementTypes[number]

@@ -4,7 +4,6 @@ import { AndroidPlatform } from '../model/platform/AndroidPlatform'
 import { ui } from '../ui'
 import { PublishOptions } from './PublishOptions'
 import { assertPlatforms, incrementPackageJson, Version } from './utils'
-import jetpack = require('fs-jetpack')
 
 export async function publish(platforms: Platform[], options: PublishOptions) {
   const selectedPlatforms = await assertPlatforms(platforms)

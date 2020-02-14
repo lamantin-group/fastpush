@@ -46,6 +46,12 @@ or\
 `npm install @lamantin/fastpush --save-dev`
 3. Go to [Usage](https://github.com/lamantin-group/publish#usage) and write your own build process
 
+### Example
+
+For more complicated examples of using this library, you can check implementation of CLI tool at [`src/cli/publish.ts`](https://github.com/lamantin-group/publish/blob/master/src/cli/publish.ts) that distributed with `@lamantin/fastpush`
+
+You can run it via `yarn fastpush -h` 
+
 ### Roadmap
 - [ ] Typings to mostly used actions and lanes
 - [ ] Use [semver](https://semver.org/) notation. \
