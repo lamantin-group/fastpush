@@ -50,8 +50,31 @@ or\
 
 For more complicated examples of using this library, you can check implementation of CLI tool at [`src/cli/publish.ts`](https://github.com/lamantin-group/publish/blob/master/src/cli/publish.ts) that distributed with `@lamantin/fastpush`
 
-You can run it via `yarn fastpush --help` for example
-![fastpush-example](./images/fastpush-cli.png)
+
+```
+  ╭─────────────────────────────────────────────────────────────────────────╮
+  │                                                                         │
+  │   fastpush - helper for publishing react-native projects via fastlane   │
+  │                                                                         │
+  ╰─────────────────────────────────────────────────────────────────────────╯
+
+  USAGE
+
+    @fastpush [android] [ios] --track <alpha|beta|production> [...options]
+
+  PARAMETERS
+
+    android - publish android to Google Play
+    ios     - publish ios to AppStore       
+
+  OPTIONS
+
+    -i, --increment <none|patch|minor|major> - increment app version [none]     
+    -t, --track <alpha|beta|production>      - select publish track [alpha]     
+    -s, --silent <true|false>                - distribute without asking [false]
+    -p, --project <project>                  - path to root of project [.]      
+    -r, --rollout <0..100>                   - percent rollout [100]            
+```
 
 ### Roadmap
 - [x] Typing for build and publish lanes
