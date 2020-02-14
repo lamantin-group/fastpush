@@ -39,7 +39,7 @@ describe(`android platform actions`, () => {
     it(`should increment build number for ${path}`, async () => {
       const actions = createAndroidPlatform(buildGradle)
       const prevBuildNumber = await actions.getBuildNumber()
-      const [oldBuildNumber, newBuildNumber] = await actions.incrementVersionCode()
+      const [oldBuildNumber, newBuildNumber] = await actions.incrementBuildNumber()
 
       expect(prevBuildNumber, 'Incorrect previous buildNumber').to.equal(oldBuildNumber)
       expect(newBuildNumber, 'Incorrect new buildNumber').to.equal(prevBuildNumber + 1)
