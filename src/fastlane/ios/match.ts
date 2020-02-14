@@ -1,5 +1,5 @@
 import { mapObjectToArgs } from "../mappers";
-import { IOSLane } from "../Lane"
+import { IOSLane } from ".";
 
 export type MatchType = "appstore" | "development" | "adhoc" | "enterprise" | "developer_id"
 

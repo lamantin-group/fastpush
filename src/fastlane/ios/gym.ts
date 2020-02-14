@@ -1,5 +1,5 @@
-import { IOSLane } from "../Lane";
 import { mapObjectToArgs } from "../mappers";
+import { IOSLane } from ".";
 
 export type GymArgs = {
   /**

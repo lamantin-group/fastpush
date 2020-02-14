@@ -1,4 +1,4 @@
-import { IOSLane } from "../Lane"
+import { IOSLane } from ".";
 import { mapObjectToArgs } from "../mappers"
 
 export type PilotArgs = {

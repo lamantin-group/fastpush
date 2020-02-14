@@ -3,8 +3,9 @@
     "lib": ["es5", "es6", "dom"],
     // "rootDir": "src",
     "module": "commonjs",
+    "declaration": true,
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "es5",
     "noImplicitAny": false,
     "moduleResolution": "node",
     "sourceMap": true,
@@ -14,7 +15,7 @@
     "resolveJsonModule": true
   },
   "include": [
-    "src/**/*", "test/example.ts"
+    "src"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "test"]
 }
