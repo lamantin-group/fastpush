@@ -8,7 +8,11 @@ export * from './ios'
 export function fastlane(platformDirectory: string, task: string) {
   const originalCwd = jetpack.cwd()
   const fastfilePath = platformDirectory + '/fastlane/Fastfile'
-  const contextFilePath = jetpack.path('assets/Context.rb')
+
+  const contextFilePath = jetpack
+    .cwd(__dirname)
+    .cwd('../../assets')
+    .path('Context.rb')
   // const ruby = jetpack.read(rubyPath)
   const fastfileOriginal = jetpack.read(fastfilePath)
   const fastfileModifyed = `import '${contextFilePath}'\n${fastfileOriginal}`
