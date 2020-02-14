@@ -31,4 +31,11 @@ describe('ios platform actions', () => {
     chai.assert.equal(versionForUpdate, newVersion)
     assertVersionName(oldVersion)
   })
+
+  it('should increment build number', async () => {
+    const [oldBuildNumber, newBuildNumber] = await iosPlatform.incrementBuildNumber()
+    chai.assert.isNumber(oldBuildNumber)
+    chai.assert.isNumber(newBuildNumber)
+    chai.assert.equal(newBuildNumber, oldBuildNumber + 1)
+  })
 })

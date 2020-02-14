@@ -4,24 +4,34 @@ import jetpack = require('fs-jetpack')
 import shell, { ShellString } from 'shelljs'
 
 export class IOSPlatform {
-  projectDirectory: string
-  iosDirectory: string
+  private projectDirectory: string
+  private iosDirectory: string
 
   constructor(projectDirectory: string = jetpack.cwd(), iosDirectory: string = projectDirectory + '/ios') {
     this.projectDirectory = projectDirectory
     this.iosDirectory = iosDirectory
   }
 
-  async setVersionName(newVersion: string): Promise<Version[]> {
+  /**
+   * Execute `xcrun agvtool new-marketing-version ${newVersion}`
+   * @param newVersion your version in format `number.number.number` (ex: 1.2.3)
+   */
+  async setVersionName(newVersion: string): Promise<[Version, Version]> {
     const oldVersion = await this.getVersionName()
     this.exec(`xcrun agvtool new-marketing-version ${newVersion}`)
     const updatedVersion = await this.getVersionName()
     return [oldVersion, updatedVersion]
   }
 
-  async incrementBuildNumber(): Promise<number[]> {
-    error('incrementBuildNumber not implemented for ios')
-    return Promise.resolve([-1, -1])
+  /**
+   * Execute `xcrun agvtool next-version -all` for increment build number
+   * @returns [oldBuildNumber, newBuildNumber]
+   */
+  async incrementBuildNumber(): Promise<[number, number]> {
+    const oldBuildNumber = await this.getBuildNumber()
+    this.exec('xcrun agvtool next-version -all')
+    const newBuildNumber = await this.getBuildNumber()
+    return [oldBuildNumber, newBuildNumber]
   }
 
   /**
@@ -34,7 +44,11 @@ export class IOSPlatform {
     return buildNumber
   }
 
-  async getVersionName(): Promise<string> {
+  /**
+   * Execute `xcrun agvtool what-marketing-version` and parse returned value
+   * @returns version name like "1.2.3"
+   */
+  async getVersionName(): Promise<Version> {
     const result = this.exec('xcrun agvtool what-marketing-version')
     const phrase = 'Found CFBundleShortVersionString of "'
     const startIndex = result.indexOf(phrase)
@@ -46,7 +60,7 @@ export class IOSPlatform {
   private exec(command: string): ShellString {
     const result = shell.cd(this.iosDirectory).exec(command, { silent: true })
     if (result.code != 0) {
-      throw result.stderr
+      throw result.stdout
     }
     return result
   }
