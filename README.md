@@ -48,7 +48,7 @@ or\
 
 ### Example
 
-For more complicated examples of using this library, you can check implementation of CLI tool at [`src/cli/publish.ts`](https://github.com/lamantin-group/publish/blob/master/src/cli/publish.ts) that distributed with `@lamantin/fastpush`
+For more complicated examples, you can check implementation of CLI tool at [`src/cli/publish.ts`](https://github.com/lamantin-group/publish/blob/master/src/cli/publish.ts) that distributed with this library
 
 
 ```
@@ -60,7 +60,7 @@ For more complicated examples of using this library, you can check implementatio
 
   USAGE
 
-    @fastpush [android] [ios] --track <alpha|beta|production> [...options]
+    fastpush [android] [ios] --track <alpha|beta|production> [...options]
 
   PARAMETERS
 
