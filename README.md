@@ -50,7 +50,8 @@ or\
 
 For more complicated examples of using this library, you can check implementation of CLI tool at [`src/cli/publish.ts`](https://github.com/lamantin-group/publish/blob/master/src/cli/publish.ts) that distributed with `@lamantin/fastpush`
 
-You can run it via `yarn fastpush -h` 
+You can run it via `yarn fastpush --help` for example
+![fastpush-example](./images/fastpush-cli.png)
 
 ### Roadmap
 - [ ] Typings to mostly used actions and lanes
