@@ -1,12 +1,17 @@
 {
   "name": "@lamantin/fastpush",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Typed fastlane frontend for pushing builds to store",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "author": "whalemare",
   "license": "MIT",
-  "keywords": ["fastpush", "fastlane", "lamantin", "react-native"],
+  "keywords": [
+    "fastpush",
+    "fastlane",
+    "lamantin",
+    "react-native"
+  ],
   "private": false,
   "scripts": {
     "prepublish": "npm version patch",
