@@ -26,7 +26,7 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
 }
 
 async function processAndroid(options: PublishOptions, androidPlaftorm: AndroidPlatform, newVersion: Version) {
-  const [oldBuildNumber, newBuildNumber] = await androidPlaftorm.incrementVersionCode()
+  const [oldBuildNumber, newBuildNumber] = await androidPlaftorm.incrementBuildNumber()
   ui.success(`Update android versionCode [${oldBuildNumber}] -> [${newBuildNumber}]`)
 
   const [oldVersion, androidNewVersion] = await androidPlaftorm.setVersionName(newVersion)

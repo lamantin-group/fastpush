@@ -51,7 +51,7 @@ export class AndroidPlatform {
     return versionName
   }
 
-  async incrementVersionCode(): Promise<[number, number]> {
+  async incrementBuildNumber(): Promise<[number, number]> {
     const buildNumber = await this.getBuildNumber()
     this.changeField('versionCode', `${buildNumber + 1}`)
     const newBuildNumber = await this.getBuildNumber()
