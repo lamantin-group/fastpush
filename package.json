@@ -12,6 +12,9 @@
     "lamantin",
     "react-native"
   ],
+  "bin": {
+    "fastpush": "./build/src/cli/index.js"
+  },
   "private": false,
   "scripts": {
     "prepublish": "npm version patch && yarn build && cp -r assets build",

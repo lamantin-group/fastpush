@@ -2,7 +2,8 @@ import boxen, { BorderStyle } from 'boxen'
 import { CLI, Shim } from 'clime'
 import * as Path from 'path'
 import config from '../../package.json'
-CLI.commandModuleExtension = '.ts'
+// todo: need determinate JS or TS file uses
+// CLI.commandModuleExtension = '.ts'
 
 export const appDescription = boxen('publish - helper for publishing react-native projects via fastlane', {
   padding: 1,
