@@ -48,3 +48,5 @@ or\
 - [ ] Typings to mostly used actions and lanes
 - [ ] Use [semver](https://semver.org/) notation. \
 For now, library api have experimental status and can be changed without semver version updates.
+- [x] `IOSPlatform` helper for increment build number, set version name and getting this values
+- [x] `AndroidPlatform` helper for increment build number, set version name and getting this values
