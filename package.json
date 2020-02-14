@@ -14,7 +14,7 @@
   ],
   "private": false,
   "scripts": {
-    "prepublish": "npm version patch",
+    "prepublish": "npm version patch && yarn build",
     "lint": "eslint src/**/*.ts --fix",
     "build": "tsc",
     "start:help": "ts-node ./src/index.ts --help",
