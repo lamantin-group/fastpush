@@ -1,7 +1,6 @@
 import { Version } from '../../cli/utils'
 export * from './AndroidPlatform'
 export * from './IOSPlatform'
-export * from './PathProvider'
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const platformTypes = <const>['android', 'ios']
