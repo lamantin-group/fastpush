@@ -2,6 +2,9 @@ import child_process from 'child_process'
 import shell from 'shelljs'
 import jetpack = require('fs-jetpack')
 
+export * from './android'
+export * from './ios'
+
 export function fastlane(platformDirectory: string, task: string) {
   const originalCwd = jetpack.cwd()
   const fastfilePath = platformDirectory + '/fastlane/Fastfile'

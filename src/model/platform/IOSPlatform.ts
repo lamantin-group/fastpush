@@ -1,6 +1,6 @@
 import { PublishOptions } from '../../cli/PublishOptions'
-import { error } from '../../ui'
 import { Version } from '../../cli/utils'
+import { error } from '../../ui/error'
 
 export default class IOSPlatformActions {
   async setVersion(newVersion: string): Promise<Version[]> {

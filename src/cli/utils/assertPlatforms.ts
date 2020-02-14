@@ -1,4 +1,4 @@
-import { select } from '../../ui'
+import { ui } from '../../ui'
 import { Platform, platformTypes } from '../../model/platform'
 
 export type PlatformAtLeastOne =
@@ -13,9 +13,10 @@ export type PlatformAtLeastOne =
 export async function assertPlatforms(platforms: Platform[]): Promise<PlatformAtLeastOne> {
   if (!platforms || platforms.length <= 0) {
     console.warn('platforms is empty')
-    const selectedPlatforms: PlatformAtLeastOne = await select<Platform>('You should specify platform for publishing', [
-      ...platformTypes,
-    ])
+    const selectedPlatforms: PlatformAtLeastOne = await ui.select<Platform>(
+      'You should specify platform for publishing',
+      [...platformTypes],
+    )
     return assertPlatforms(selectedPlatforms)
   }
 

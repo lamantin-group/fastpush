@@ -1,6 +1,6 @@
 import g2js from 'gradle-to-js/lib/parser'
 import { Version } from '../../cli/utils'
-import { message } from '../../ui'
+import { ui } from '../../ui'
 import jetpack = require('fs-jetpack')
 
 /**
@@ -35,7 +35,7 @@ export class AndroidPlatform {
       throw Error(`Expected path to build.gradle file, but ${this.buildGradlePath} is ${type}`)
     } else {
       // TODO: handle case when passed only buildGradlePath, but not projectDirectory and androidDirectory
-      message('Found android project: ' + androidDirectory)
+      ui.message('Found android project: ' + androidDirectory)
     }
   }
 

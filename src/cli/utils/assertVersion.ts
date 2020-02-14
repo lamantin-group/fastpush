@@ -1,4 +1,4 @@
-import { question, error, read } from '../../ui'
+import { ui } from '../../ui'
 import { Incrementer } from '../../utils/increment/Incrementer'
 import { Version } from './Version'
 
@@ -15,14 +15,14 @@ export async function assertVersion(version: Version): Promise<Version> {
   }
   const migration = Incrementer.tryMigrateVersion(version)
   if (migration) {
-    const shouldApplyMigration = await question(
+    const shouldApplyMigration = await ui.question(
       `Your version is [${version}], but expected semver 3 digits value, like [1.0.0]. Should we change it to [${migration}]?`,
     )
     if (shouldApplyMigration) {
       return Promise.resolve(migration)
     }
   }
-  error(`Your version is ${version}, but supported only 3 digits value like 1.0.0`)
-  const newVersion = await read(`Enter version manualy and change from (${version}) ->`)
+  ui.error(`Your version is ${version}, but supported only 3 digits value like 1.0.0`)
+  const newVersion = await ui.read(`Enter version manualy and change from (${version}) ->`)
   return await assertVersion(newVersion)
 }
