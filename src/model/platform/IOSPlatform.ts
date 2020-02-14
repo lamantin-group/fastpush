@@ -1,4 +1,3 @@
-import { PublishOptions } from '../../cli/PublishOptions'
 import { Version } from '../../cli/utils'
 import { error } from '../../ui/error'
 
