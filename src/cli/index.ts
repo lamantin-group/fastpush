@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import boxen, { BorderStyle } from 'boxen'
 import { CLI, Shim } from 'clime'
 import * as Path from 'path'
