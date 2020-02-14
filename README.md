@@ -1,4 +1,4 @@
-# fastpush [![codecov](https://codecov.io/gh/lamantin-group/publish/branch/master/graph/badge.svg)](https://codecov.io/gh/lamantin-group/publish) ![api](https://img.shields.io/badge/api-experimental-orange.svg)
+# fastpush [![codecov](https://codecov.io/gh/lamantin-group/publish/branch/master/graph/badge.svg)](https://codecov.io/gh/lamantin-group/publish) ![api](https://img.shields.io/badge/api-experimental-orange.svg) ![tests](https://github.com/lamantin-group/publish/workflows/tests/badge.svg)
 
 Painless publish React Native apps
 
