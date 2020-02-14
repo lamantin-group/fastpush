@@ -1,5 +1,2 @@
-import { IncrementType } from '../../cli/PublishOptions'
-import { error, progress, question } from '../../ui'
-import { read } from '../../ui/read'
-import { Incrementer } from './Incrementer'
-import { readVersionFrom } from './readVersion'
+export * from './Incrementer'
+export * from './readVersion'
