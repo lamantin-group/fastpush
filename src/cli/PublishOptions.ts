@@ -22,7 +22,7 @@ export class PublishOptions extends Options {
     flag: 't',
     description: 'select publish track',
     placeholder: trackTypes.join('|'),
-    required: true,
+    required: false,
     default: trackTypes[0],
   })
   track: TrackType
