@@ -2,8 +2,9 @@ import { Version } from '../../cli/utils'
 import { error } from '../../ui/error'
 import jetpack = require('fs-jetpack')
 import shell, { ShellString } from 'shelljs'
+import { PlatformActions } from '.'
 
-export class IOSPlatform {
+export class IOSPlatform implements PlatformActions {
   private projectDirectory: string
   private iosDirectory: string
 

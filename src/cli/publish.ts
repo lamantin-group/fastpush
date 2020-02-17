@@ -1,9 +1,13 @@
 import { android, gradle, supply } from '../fastlane/android'
-import { Platform } from '../model/platform'
+import { Platform, IOSPlatform } from '../model/platform'
 import { AndroidPlatform } from '../model/platform/AndroidPlatform'
 import { ui } from '../ui'
 import { PublishOptions } from './PublishOptions'
 import { assertPlatforms, incrementPackageJson, Version } from './utils'
+import { ios } from '../fastlane'
+import { gym } from '../fastlane/ios/gym'
+import { pilot } from '../fastlane/ios/pilot'
+import { match } from '../fastlane/ios/match'
 
 export async function publish(platforms: Platform[], options: PublishOptions) {
   const selectedPlatforms = await assertPlatforms(platforms)
@@ -19,9 +23,23 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
   }
 
   if (selectedPlatforms.find(it => it === 'ios')) {
-    ui.error('ios not supported yet')
-    // const iosPlatform = new IOSPlatformActions(options.project.fullName)
+    await processIOS(options, new IOSPlatform(options.project.fullName), newVersion)
   }
+}
+
+async function processIOS(options: PublishOptions, iosPlaftorm: IOSPlatform, newVersion: Version) {
+  const [oldBuildNumber, newBuildNumber] = await iosPlaftorm.incrementBuildNumber()
+  ui.success(`Update ios versionCode [${oldBuildNumber}] -> [${newBuildNumber}]`)
+
+  const [oldVersion, iosNewVersion] = await iosPlaftorm.setVersionName(newVersion)
+  ui.success(`Update ios versionName [${oldVersion}] -> [${iosNewVersion}]`)
+
+  ios([
+    // some actions
+    match('appstore'),
+    gym(),
+    pilot(),
+  ])
 }
 
 async function processAndroid(options: PublishOptions, androidPlaftorm: AndroidPlatform, newVersion: Version) {
@@ -32,10 +50,11 @@ async function processAndroid(options: PublishOptions, androidPlaftorm: AndroidP
   ui.success(`Update android versionName [${oldVersion}] -> [${androidNewVersion}]`)
 
   android([
+    // some actions
     gradle('clean'),
-    gradle('assemble', {
+    gradle('bundle', {
       build_type: 'Release',
     }),
-    supply({ track: options.track, rollout: options.rollout }),
+    supply({ track: 'beta', rollout: 50 }),
   ])
 }

@@ -2,11 +2,12 @@ import g2js from 'gradle-to-js/lib/parser'
 import { Version } from '../../cli/utils'
 import { ui } from '../../ui'
 import jetpack = require('fs-jetpack')
+import { PlatformActions } from '.'
 
 /**
  * @param android - android project directory path
  */
-export class AndroidPlatform {
+export class AndroidPlatform implements PlatformActions {
   private projectDirectory: string
   private androidDirectory: string
   private buildGradlePath: string

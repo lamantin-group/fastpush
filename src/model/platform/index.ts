@@ -7,7 +7,8 @@ export const platformTypes = <const>['android', 'ios']
 export type Platform = typeof platformTypes[number]
 
 export interface PlatformActions {
-  setVersion(newVersion: string): Promise<Version[]>
-  incrementBuildNumber(): Promise<number[]>
+  getVersionName(): Promise<string>
+  setVersionName(newVersion: Version): Promise<[Version, Version]>
+  incrementBuildNumber(): Promise<[number, number]>
   getBuildNumber(): Promise<number>
 }
