@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Options, option } from 'clime'
-import { Directory } from 'clime/bld/castable'
+import { Directory, File } from 'clime/bld/castable'
 
 export const incrementTypes = <const>['none', 'patch', 'minor', 'major']
 export type IncrementType = typeof incrementTypes[number]
@@ -53,4 +53,12 @@ export class PublishOptions extends Options {
     default: 100,
   })
   rollout: number
+
+  @option({
+    flag: 'e',
+    description: 'environment file with config',
+    required: false,
+    default: '.env',
+  })
+  envFile: File
 }

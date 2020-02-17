@@ -1,9 +1,9 @@
 import { android, gradle } from '../src'
+import TelegramBot from 'node-telegram-bot-api'
+import { CLI } from 'clime'
 
-const project = '/Users/whalemare/Development/react-native/raduga'
+const project = '/Users/whalemare/Development/react-native/myholiday'
 
-async function publishAndroid() {
-  android([gradle('clean')], project)
-}
+async function run() {}
 
-publishAndroid()
+run()
