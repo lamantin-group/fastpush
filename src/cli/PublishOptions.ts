@@ -77,5 +77,5 @@ export class PublishOptions extends Options {
     placeholder: 'assemble|bundle',
     default: 'assemble',
   })
-  androidBuild: string
+  androidBuild: 'assemble' | 'bundle'
 }

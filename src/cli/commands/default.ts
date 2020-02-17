@@ -4,6 +4,8 @@ import { publish } from '../publish'
 import { Platform } from '../../model/platform'
 import { PublishOptions } from '../PublishOptions'
 import boxen = require('boxen')
+import { Hooks } from '../hooks'
+import { assertPlatforms } from '../utils'
 
 const appDescription = boxen('fastpush - helper for publishing react-native projects via fastlane', {
   padding: 1,
@@ -24,7 +26,7 @@ const androidParam: ParamOptions<boolean> = {
   brief: 'brief',
 })
 export default class extends Command {
-  execute(@param(androidParam) android: boolean, @param(iosParam) ios: boolean, options: PublishOptions) {
+  async execute(@param(androidParam) android: boolean, @param(iosParam) ios: boolean, options: PublishOptions) {
     const platforms: Platform[] = []
     if (ios) {
       platforms.push('ios')
@@ -32,6 +34,9 @@ export default class extends Command {
     if (android) {
       platforms.push('android')
     }
-    publish(platforms, options)
+
+    const selectedPlatforms = await assertPlatforms(platforms)
+
+    publish(selectedPlatforms, options)
   }
 }
