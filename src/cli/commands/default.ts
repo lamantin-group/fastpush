@@ -25,7 +25,6 @@ const androidParam: ParamOptions<boolean> = {
 })
 export default class extends Command {
   execute(@param(androidParam) android: boolean, @param(iosParam) ios: boolean, options: PublishOptions) {
-    console.log('ios = ', ios, 'android = ', android, 'options =', options)
     const platforms: Platform[] = []
     if (ios) {
       platforms.push('ios')
