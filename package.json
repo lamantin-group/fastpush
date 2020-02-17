@@ -20,7 +20,7 @@
     "prepublishOnly": "npm version patch && yarn build && cp -r assets build",
     "postpublish": "git push",
     "lint": "eslint src/**/*.ts --fix",
-    "build": "tsc",
+    "build": "tsc && chmod -R +x ./build",
     "start:help": "ts-node ./src/index.ts --help",
     "start:android": "ts-node ./src/index.ts android --track beta",
     "start:android:project": "ts-node ./src/index.ts android --track beta -p /Users/whalemare/Development/react-native/myholiday",

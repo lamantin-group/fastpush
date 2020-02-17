@@ -5,7 +5,7 @@ describe(`integration test of publish`, function() {
   this.timeout(10000)
 
   it(`should show help for program`, done => {
-    shell.exec('./build/src/cli/index.js -h', code => {
+    shell.exec('./build/cli/index.js -h', code => {
       if (code != 0) {
         done(code)
       } else {
@@ -13,4 +13,15 @@ describe(`integration test of publish`, function() {
       }
     })
   })
+
+  // it(`should apply env file`, done => {
+  //   const envFile = __dirname + '/../assets/.test.env'
+  //   shell.exec(`./build/cli/index.js android --track beta -e ${envFile}`, code => {
+  //     if (code != 0) {
+  //       done(code)
+  //     } else {
+  //       done()
+  //     }
+  //   })
+  // })
 })
