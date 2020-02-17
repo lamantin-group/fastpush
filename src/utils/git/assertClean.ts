@@ -12,7 +12,7 @@ export async function assertClean(): Promise<boolean> {
     console.log('Git directory is clean')
     return true
   } else {
-    const isContinue = await ask('You has uncommitted changes. Continue?', false)
+    const isContinue = await ask('You has uncommitted changes. Continue?', true)
     if (isContinue) {
       console.log('You are crazy...')
       return true
