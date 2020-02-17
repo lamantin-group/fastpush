@@ -1,12 +1,13 @@
-import { Version } from '../../cli/utils'
-import { error } from '../../ui/error'
-import jetpack = require('fs-jetpack')
 import shell, { ShellString } from 'shelljs'
-import { PlatformActions } from '.'
+import { Platform, PlatformActions } from '.'
+import { Version } from '../../cli/utils'
+import jetpack = require('fs-jetpack')
 
 export class IOSPlatform implements PlatformActions {
   private projectDirectory: string
   private iosDirectory: string
+
+  type: Platform = 'ios'
 
   constructor(projectDirectory: string = jetpack.cwd(), iosDirectory: string = projectDirectory + '/ios') {
     this.projectDirectory = projectDirectory
