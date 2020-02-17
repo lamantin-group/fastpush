@@ -15,8 +15,8 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
   const selectedPlatforms = await assertPlatforms(platforms)
   env.add(options.envFile.fullName)
 
-  git.assertClean()
-  env.assert()
+  await git.assertClean()
+  await env.assert()
 
   const [oldVersion, newVersion] = await incrementPackageJson(
     `${options.project.fullName}/package.json`,
