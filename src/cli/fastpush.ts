@@ -5,8 +5,8 @@ import * as Path from 'path'
 
 const cli = new CLI('fastpush', Path.join(__dirname, 'commands'))
 const shim = new Shim(cli)
-const args = process.argv
+const consoleArgs = process.argv as string[]
 
-export function fastpush() {
+export function fastpush(args: string[] = consoleArgs) {
   shim.execute(args)
 }
