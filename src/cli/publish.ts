@@ -7,14 +7,16 @@ import { IOSPlatform, Platform, PlatformActions } from '../model/platform'
 import { AndroidPlatform } from '../model/platform/AndroidPlatform'
 import { ui } from '../ui'
 import { git } from '../utils'
-import { assertEnvironment } from '../utils/env/assertEnvironment'
+import { env } from '../utils'
 import { PublishOptions } from './PublishOptions'
 import { assertPlatforms, incrementPackageJson, Version } from './utils'
 
 export async function publish(platforms: Platform[], options: PublishOptions) {
   const selectedPlatforms = await assertPlatforms(platforms)
+  env.add(options.envFile.fullName)
+
   git.assertClean()
-  assertEnvironment()
+  env.assert()
 
   const [oldVersion, newVersion] = await incrementPackageJson(
     `${options.project.fullName}/package.json`,
