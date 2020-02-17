@@ -1,5 +1,5 @@
 import { ios } from '../fastlane'
-import { android, gradle, supply } from '../fastlane/android'
+import { android, gradle, supply, GradleArgTask } from '../fastlane/android'
 import { gym } from '../fastlane/ios/gym'
 import { match } from '../fastlane/ios/match'
 import { pilot } from '../fastlane/ios/pilot'
@@ -25,7 +25,15 @@ export async function publish(platforms: Platform[], options: PublishOptions) {
   ui.success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
 
   if (selectedPlatforms.find(it => it === 'android')) {
-    await process(options, new AndroidPlatform(options.project.fullName), newVersion)
+    const androidPlatform = new AndroidPlatform(options.project.fullName)
+    try {
+      await process(options, androidPlatform, newVersion)
+    } catch (e) {
+      throw e
+    } finally {
+      // androidPlatform.setVersionName(oldVersion)
+      // ui.success(`Set package.json version [${newVersion}] -> [${oldVersion}] back`)
+    }
   }
 
   if (selectedPlatforms.find(it => it === 'ios')) {
@@ -46,10 +54,12 @@ async function process(options: PublishOptions, platform: PlatformActions, versi
   } else if (platform.type === 'android') {
     android([
       gradle('clean'),
-      gradle('assemble', {
+      // todo: validate GradleArgTask
+      gradle(options.androidBuild as GradleArgTask, {
+        flavor: options.flavor,
         build_type: 'Release',
       }),
-      supply({ track: 'beta' }),
+      supply({ track: options.track }),
     ])
   }
 

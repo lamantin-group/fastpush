@@ -61,4 +61,21 @@ export class PublishOptions extends Options {
     default: '.env',
   })
   envFile: File
+
+  @option({
+    flag: 'f',
+    description: 'flavor for android',
+    required: false,
+    default: null,
+  })
+  flavor: string
+
+  @option({
+    flag: 'b',
+    description: 'build android task: assemble (.apk) or bundle (.aab)',
+    required: false,
+    placeholder: 'assemble|bundle',
+    default: 'assemble',
+  })
+  androidBuild: string
 }
