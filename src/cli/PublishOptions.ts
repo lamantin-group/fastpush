@@ -1,81 +1,24 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { Options, option } from 'clime'
-import { Directory, File } from 'clime/bld/castable'
-
 export const incrementTypes = <const>['none', 'patch', 'minor', 'major']
 export type IncrementType = typeof incrementTypes[number]
 
 export const trackTypes = <const>['alpha', 'beta', 'production']
 export type TrackType = typeof trackTypes[number]
 
-export class PublishOptions extends Options {
-  @option({
-    flag: 'i',
-    description: 'increment app version',
-    placeholder: incrementTypes.join('|'),
-    required: false,
-    default: incrementTypes[0],
-  })
+export class PublishOptions {
   increment: IncrementType
 
-  @option({
-    flag: 't',
-    description: 'select publish track',
-    placeholder: trackTypes.join('|'),
-    required: false,
-    default: trackTypes[0],
-  })
   track: TrackType
 
-  @option({
-    flag: 's',
-    description: 'distribute without asking',
-    placeholder: 'true|false',
-    required: false,
-    default: false,
-  })
   silent: boolean
 
-  @option({
-    flag: 'p',
-    description: 'path to root of project',
-    placeholder: 'project',
-    required: false,
-    default: '.',
-  })
-  project: Directory
+  project: string
 
-  @option({
-    flag: 'r',
-    description: 'percent rollout',
-    placeholder: '0..100',
-    required: false,
-    default: 100,
-  })
   rollout: number
 
-  @option({
-    flag: 'e',
-    description: 'environment file with config',
-    required: false,
-    default: '.env',
-  })
-  envFile: File
+  envFile: string
 
-  @option({
-    flag: 'f',
-    description: 'flavor for android',
-    required: false,
-    default: null,
-  })
   flavor: string
 
-  @option({
-    flag: 'b',
-    description: 'build android task: assemble (.apk) or bundle (.aab)',
-    required: false,
-    placeholder: 'assemble|bundle',
-    default: 'assemble',
-  })
   androidBuild: 'assemble' | 'bundle'
 }

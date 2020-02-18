@@ -7,20 +7,20 @@ import { IOSPlatform, Platform, PlatformActions } from '../model/platform'
 import { AndroidPlatform } from '../model/platform/AndroidPlatform'
 import { ui } from '../ui'
 import { env, git } from '../utils'
+import { FastpushResult } from './fastpush'
 import { Hooks } from './hooks'
-import { PublishOptions } from './PublishOptions'
 import { incrementPackageJson, Version } from './utils'
 
 const defaultHooks: Hooks = {
   onFinish: null,
-  onStart: async (options: PublishOptions) => {
-    env.add(options.envFile.fullName)
+  onStart: async (options: FastpushResult) => {
+    env.add(options.env)
 
     await git.assertClean()
     await env.assert()
   },
 
-  provideAndroidLanes: (options: PublishOptions) => {
+  provideAndroidLanes: (options: FastpushResult) => {
     const buildPayload: GradleArgs = {
       build_type: 'Release',
     }
@@ -32,12 +32,12 @@ const defaultHooks: Hooks = {
     return [
       gradle('clean'),
       // todo: validate GradleArgTask
-      gradle(options.androidBuild, buildPayload),
+      gradle(options.build, buildPayload),
       supply({ track: options.track }),
     ]
   },
 
-  provideIOSLanes: (options: PublishOptions) => {
+  provideIOSLanes: (options: FastpushResult) => {
     return [match('appstore'), gym(), pilot()]
   },
 
@@ -51,28 +51,25 @@ const defaultHooks: Hooks = {
   },
 }
 
-export async function publish(platforms: Platform[], options: PublishOptions, hooks: Hooks = defaultHooks) {
+export async function publish(platforms: Platform[], options: FastpushResult, hooks: Hooks = defaultHooks) {
   await hooks?.onStart(options)
 
-  const [oldVersion, newVersion] = await incrementPackageJson(
-    `${options.project.fullName}/package.json`,
-    options.increment,
-  )
+  const [oldVersion, newVersion] = await incrementPackageJson(`${options.project}/package.json`, options.increment)
   ui.success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
 
   if (platforms.find(it => it === 'android')) {
-    const androidPlatform = new AndroidPlatform(options.project.fullName)
+    const androidPlatform = new AndroidPlatform(options.project)
     await process(options, androidPlatform, newVersion, hooks)
   }
 
   if (platforms.find(it => it === 'ios')) {
-    await process(options, new IOSPlatform(options.project.fullName), newVersion, hooks)
+    await process(options, new IOSPlatform(options.project), newVersion, hooks)
   }
 
   await hooks?.onFinish()
 }
 
-async function process(options: PublishOptions, platform: PlatformActions, version: Version, hooks: Hooks) {
+async function process(options: FastpushResult, platform: PlatformActions, version: Version, hooks: Hooks) {
   const [oldBuildNumber, newBuildNumber] = await platform.incrementBuildNumber()
   ui.success(`Update ${platform.type} versionCode [${oldBuildNumber}] -> [${newBuildNumber}]`)
 

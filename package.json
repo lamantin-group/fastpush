@@ -24,7 +24,8 @@
     "start:help": "ts-node ./src/index.ts --help",
     "start:android": "ts-node ./src/index.ts android --track beta",
     "start:android:project": "ts-node ./src/index.ts android --track beta -p /Users/whalemare/Development/react-native/myholiday",
-    "start": "node ./build/cli/index.js -h",
+    "start:help": "node ./build/cli/index.js -h",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "start:ios": "ts-node ./src/index.ts ios --track beta",
     "test": "mocha -r ts-node/register test/**/*.ts"
   },
@@ -32,12 +33,12 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "@types/commander": "^2.12.2",
     "@types/jest": "^25.1.1",
     "@types/node-telegram-bot-api": "^0.40.2",
     "asciiart-logo": "^0.2.6",
     "boxen": "4.2.0",
     "chalk": "^3.0.0",
-    "clime": "^0.5.10",
     "commander": "^4.1.1",
     "dotenv": "^8.2.0",
     "fs-jetpack": "^2.2.3",
