@@ -9,7 +9,7 @@ import { ui } from '../ui'
 import { env, git } from '../utils'
 import { FastpushResult } from './fastpush'
 import { Hooks } from './hooks'
-import { incrementPackageJson, Version, assertPlatforms } from './utils'
+import { assertPlatforms, incrementPackageJson, Version } from './utils'
 
 export const defaultHooks: Hooks = {
   onFinish: null,
