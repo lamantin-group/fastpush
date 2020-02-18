@@ -13,5 +13,5 @@ import { git } from '../utils'
 
 const tag = `test/1.3.21-41`
 git.commit(`${tag}`)
-git.tag(tag)
+git.tag(tag, tag)
 git.push()
