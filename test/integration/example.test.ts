@@ -16,8 +16,8 @@ describe(`integration test of fastpush`, function() {
   // })
 
   it(`should parse env option`, () => {
-    const env = './envFilePath'
-    const result = fastpush(['node', 'test', '--env', `${env}`])
+    const env = __dirname + '/../assets/.test.env'
+    const result = fastpush(['node', 'test', '--env', env])
     chai.assert.equal(result.env, env)
   })
 
