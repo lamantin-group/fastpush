@@ -8,10 +8,9 @@ import { IncrementType } from '../IncrementType'
  * Increment version in packageJson and return array with [oldVersion, newVersion]
  */
 export async function incrementPackageJson(packageJsonPath: string, type: IncrementType): Promise<[Version, Version]> {
-  const loader = ui.progress('Search version in ' + packageJsonPath)
   const version = await readVersionFrom(packageJsonPath)
   const currentVersion = await assertVersion(version)
   const newVersion = Incrementer.increment(currentVersion, type)
-  loader.stop()
+  
   return [version, newVersion]
 }

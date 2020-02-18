@@ -1,0 +1,82 @@
+{
+  "name": "@lamantin/fastpush",
+  "version": "6.8.8",
+  "description": "Typed fastlane frontend for pushing builds to store",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "author": "https://github.com/whalemare",
+  "license": "MIT",
+  "keywords": [
+    "fastpush",
+    "fastlane",
+    "lamantin",
+    "react-native"
+  ],
+  "bin": {
+    "fastpush": "./build/src/cli/index.js"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lamantin-group/fastpush"
+  },
+  "scripts": {
+    "prepublishOnly": "npm version patch && yarn build && cp -r assets build",
+    "postpublish": "git push",
+    "lint": "eslint src/**/*.ts --fix",
+    "build": "tsc && chmod -R +x ./build",
+    "start:android": "ts-node ./src/cli/index.ts android --track beta",
+    "start:android:project": "ts-node ./src/cli/index.ts android --track beta -p /Users/whalemare/Development/react-native/myholiday",
+    "start:help": "ts-node ./src/cli/index.ts -h",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "start:ios": "ts-node ./src/index.ts ios --track beta",
+    "test": "mocha -r ts-node/register test/**/*.ts"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/jest": "^25.1.1",
+    "@types/node-telegram-bot-api": "^0.40.2",
+    "asciiart-logo": "^0.2.6",
+    "boxen": "4.2.0",
+    "chalk": "^3.0.0",
+    "commander": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "fs-jetpack": "^2.2.3",
+    "gradle-to-js": "^2.0.0",
+    "inquirer": "7.0.4",
+    "jest": "25.1.0",
+    "node-telegram-bot-api": "^0.40.0",
+    "ora": "4.0.3",
+    "shelljs": "^0.8.3",
+    "ts-jest": "25.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && git add ."
+    }
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.8",
+    "@types/inquirer": "^6.5.0",
+    "@types/shelljs": "^0.8.6",
+    "@typescript-eslint/eslint-plugin": "2.19.0",
+    "@typescript-eslint/parser": "2.19.0",
+    "chai": "^4.2.0",
+    "codecov": "^3.6.4",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "husky": "^4.2.1",
+    "mocha": "^7.0.1",
+    "nodemon": "2.0.2",
+    "nyc": "^15.0.0",
+    "prettier": "1.19.1",
+    "ts-node": "^8.6.2",
+    "typescript": "3.7.5"
+  }
+}
