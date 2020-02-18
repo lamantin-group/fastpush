@@ -1,6 +1,6 @@
 {
   "name": "@lamantin/fastpush",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Typed fastlane frontend for pushing builds to store",
   "main": "build/index.js",
   "types": "build/index.d.ts",
