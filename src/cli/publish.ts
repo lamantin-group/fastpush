@@ -30,8 +30,8 @@ export const defaultHooks: Hooks = {
       build_type: 'Release',
     }
     if (options.flavor) {
-      const flavorCapitalized = options.flavor.charAt(0).toUpperCase() + options.flavor.substring(1)
-      buildPayload.flavor = flavorCapitalized
+      // const flavorCapitalized = options.flavor.charAt(0).toUpperCase() + options.flavor.substring(1)
+      buildPayload.flavor = options.flavor
     }
 
     return [
