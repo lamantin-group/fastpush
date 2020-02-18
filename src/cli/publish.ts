@@ -80,7 +80,7 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
   } else {
     platforms = await assertPlatforms(platforms)
   }
-  await hooks?.onStart(options)
+  await hooks.onStart?.(options)
 
   const [oldVersion, newVersion] = await incrementPackageJson(`${options.project}/package.json`, options.increment)
   ui.success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
@@ -94,7 +94,7 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
     await distribute(options, new IOSPlatform(options.project), newVersion, hooks)
   }
 
-  await hooks?.onFinish()
+  await hooks.onFinish?.()
 }
 
 async function distribute(options: FastpushResult, platform: PlatformActions, version: Version, hooks: Hooks) {
@@ -112,5 +112,5 @@ async function distribute(options: FastpushResult, platform: PlatformActions, ve
     throw `Unexpected platform type ${platform.type}`
   }
 
-  await hooks?.onPostPublish(platform, [oldVersion, newVersion], [oldBuildNumber, newBuildNumber])
+  await hooks.onPostPublish?.(platform, [oldVersion, newVersion], [oldBuildNumber, newBuildNumber])
 }
