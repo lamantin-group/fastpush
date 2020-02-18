@@ -1,8 +1,8 @@
 import program from 'commander'
 import packageJson from '../../package.json'
-import { Hooks } from './hooks'
 import { Option } from './Option'
-import { IncrementType, incrementTypes, TrackType, trackTypes } from './PublishOptions'
+import { incrementTypes, IncrementType } from './IncrementType'
+import { trackTypes, TrackType } from './TrackType'
 
 export type FastpushResult = ReturnType<typeof fastpush>
 

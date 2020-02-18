@@ -1,4 +1,4 @@
-import { IncrementType } from '../../cli/PublishOptions'
+import { IncrementType } from '../../cli/IncrementType'
 
 export class Incrementer {
   /**

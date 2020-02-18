@@ -1,8 +1,8 @@
-import { IncrementType } from '../PublishOptions'
 import { Version, assertVersion } from '.'
 import { ui } from '../../ui'
 import { readVersionFrom } from '../../utils/increment/readVersion'
 import { Incrementer } from '../../utils/increment/Incrementer'
+import { IncrementType } from '../IncrementType'
 
 /**
  * Increment version in packageJson and return array with [oldVersion, newVersion]
