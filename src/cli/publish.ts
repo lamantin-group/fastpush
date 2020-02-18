@@ -51,7 +51,7 @@ export const defaultHooks: Hooks = {
     const [oldVersion, version] = versions
     const [oldBuild, build] = buildNumbers
 
-    const tag = `${platform}/${version}-${build}`
+    const tag = `${platform.type}/${version}-${build}`
     const whoami = process.env.USER || ''
     git.commit(`Up version ${tag}`)
     git.tag(tag, `Up version by ${whoami}`)
