@@ -107,7 +107,7 @@ async function distribute(options: FastpushResult, platform: PlatformActions, ve
   if (platform.type === 'ios') {
     ios(hooks.provideIOSLanes(options))
   } else if (platform.type === 'android') {
-    // android(hooks.provideAndroidLanes(options))
+    android(hooks.provideAndroidLanes(options))
   } else {
     throw `Unexpected platform type ${platform.type}`
   }

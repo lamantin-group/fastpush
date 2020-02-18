@@ -32,7 +32,7 @@ describe(`android platform actions`, () => {
       const prevVersion = await actions.getVersionName()
 
       const [oldVersion, newVersion] = await actions.setVersionName(version)
-      expect(newVersion, 'Incorrect pass newVersion').to.equal(newVersion)
+      expect(version, 'Incorrect pass newVersion').to.equal(newVersion)
       expect(oldVersion, 'Incorrect pass oldVersion').to.equal(prevVersion)
     })
 
