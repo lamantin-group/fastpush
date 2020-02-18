@@ -34,6 +34,5 @@ export function fastlane(platformDirectory: string, task: string) {
     throw e
   } finally {
     jetpack.write(fastfilePath, fastfileOriginal)
-    child_process.execSync(originalCwd)
   }
 }
