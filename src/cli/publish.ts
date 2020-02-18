@@ -9,7 +9,7 @@ import { ui } from '../ui'
 import { env, git } from '../utils'
 import { FastpushResult } from './fastpush'
 import { Hooks } from './hooks'
-import { incrementPackageJson, Version } from './utils'
+import { incrementPackageJson, Version, assertPlatforms } from './utils'
 
 const defaultHooks: Hooks = {
   onFinish: null,
@@ -51,7 +51,16 @@ const defaultHooks: Hooks = {
   },
 }
 
-export async function publish(platforms: Platform[], options: FastpushResult, hooks: Hooks = defaultHooks) {
+export async function publish(options: FastpushResult, hooks: Hooks = defaultHooks) {
+  let platforms: Platform[] = []
+  if (options.android) {
+    platforms.push('android')
+  }
+  if (options.ios) {
+    platforms.push('ios')
+  }
+
+  platforms = await assertPlatforms(platforms)
   await hooks?.onStart(options)
 
   const [oldVersion, newVersion] = await incrementPackageJson(`${options.project}/package.json`, options.increment)

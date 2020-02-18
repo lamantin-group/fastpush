@@ -1,5 +1,3 @@
-import { IncrementType, incrementTypes } from './PublishOptions'
-
 export type Option<T = string> = {
   flag?: string
   name: string
