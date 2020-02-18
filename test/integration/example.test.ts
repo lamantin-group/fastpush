@@ -15,6 +15,18 @@ describe(`integration test of fastpush`, function() {
   //   console.log('default values: ', result)
   // })
 
+  it(`should parse env option`, () => {
+    const env = './envFilePath'
+    const result = fastpush(['node', 'test', '--env', `${env}`])
+    chai.assert.equal(result.env, env)
+  })
+
+  it(`should parse 99 rollout option`, () => {
+    const rollout = 99
+    const result = fastpush(['node', 'test', '--rollout', `${rollout}`])
+    chai.assert.equal(result.rollout, rollout)
+  })
+
   it(`should parse assemble build option`, () => {
     const build = 'assemble'
     const result = fastpush(['node', 'test', '--build', build])
