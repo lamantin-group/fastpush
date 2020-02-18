@@ -81,13 +81,17 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
 
 program.version(packageJson.version).description(packageJson.description)
 
+/**
+ * CLI parser that map your args input to JS object with options
+ * @param args
+ */
 export function fastpush(args: string[] = process.argv) {
   Object.keys(options).forEach(key => {
     const option = options[key] as Option<any>
     if (option.flag) {
       program.option(
-        `-${option.flag}, --${option.name}`,
-        `${option.description} [${option.placeholder}]`,
+        `-${option.flag}, --${option.name} <${option.placeholder}>`,
+        `${option.description}`,
         option.default,
       )
     } else {
@@ -96,7 +100,6 @@ export function fastpush(args: string[] = process.argv) {
   })
 
   program.parse(args)
-  console.log(program.opts())
 
   if (!args.slice(2).length) {
     console.warn('Pass arguments') // todo: add usage examples
@@ -104,9 +107,6 @@ export function fastpush(args: string[] = process.argv) {
     return
   }
 
-  console.log('project = ', program.project)
-  console.log('flavor = ', program.flavor)
-  console.log('track = ', program.track)
   const parsed = {
     increment: program.increment as IncrementType,
     track: program.track as TrackType,

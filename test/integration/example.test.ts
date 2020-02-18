@@ -10,15 +10,16 @@ const exec = require('child_process').exec
 describe(`integration test of fastpush`, function() {
   this.timeout(10000)
 
-  it(`should show help for program`, done => {
-    const result = fastpush(['node', 'fastpush', 'fastpush', '-h'])
-    console.log('default values: ', result)
-  })
+  // it(`should show help for program`, done => {
+  //   const result = fastpush(['node', 'test', '-h'])
+  //   console.log('default values: ', result)
+  // })
 
-  it(`should parse flavor option`, async done => {
-    const result = fastpush(['node', 'fastpush', '--flavor', 'prod'])
+  it(`should parse flavor option`, () => {
+    const flavor = 'someFlavorType'
+    const result = fastpush(['node', 'test', '--flavor', flavor])
     chai.assert.isString(result.flavor)
-    chai.assert.equal(result.flavor, 'prod')
+    chai.assert.equal(result.flavor, flavor)
   })
 
   it(`should parse android option`, () => {
