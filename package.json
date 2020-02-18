@@ -4,7 +4,7 @@
   "description": "Typed fastlane frontend for pushing builds to store",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
-  "author": "whalemare",
+  "author": "https://github.com/whalemare",
   "license": "MIT",
   "keywords": [
     "fastpush",
@@ -16,6 +16,10 @@
     "fastpush": "./build/src/cli/index.js"
   },
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lamantin-group/fastpush"
+  },
   "scripts": {
     "prepublishOnly": "npm version patch && yarn build && cp -r assets build",
     "postpublish": "git push",
