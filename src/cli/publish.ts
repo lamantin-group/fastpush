@@ -51,7 +51,11 @@ export const defaultHooks: Hooks = {
   },
 }
 
-export async function publish(options: FastpushResult, hooks: Hooks = defaultHooks) {
+export async function publish(options: FastpushResult, passedHooks?: Hooks) {
+  const hooks = {
+    ...defaultHooks,
+    ...passedHooks,
+  }
   let platforms: Platform[] = []
   if (options.android) {
     platforms.push('android')
