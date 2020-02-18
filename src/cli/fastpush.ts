@@ -79,7 +79,7 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
 
 program.version(packageJson.version).description(packageJson.description)
 
-export function fastpush(args: string[] = process.argv, hooks?: Hooks) {
+export function fastpush(args: string[] = process.argv) {
   Object.keys(options).forEach(key => {
     const option = options[key] as Option<any>
     if (option.flag) {
@@ -97,15 +97,14 @@ export function fastpush(args: string[] = process.argv, hooks?: Hooks) {
     }
   })
 
-  if (program.debug) console.log(program.opts())
-
   if (args.length <= 2) {
     program.help()
     return
   }
 
   program.parse(args)
-  return {
+
+  const parsed = {
     increment: program.increment as IncrementType,
     track: program.track as TrackType,
     silent: program.silent as boolean,
@@ -118,4 +117,13 @@ export function fastpush(args: string[] = process.argv, hooks?: Hooks) {
     ios: program.ios as boolean,
     // platforms: program.platforms as Platform[],
   }
+
+  Object.keys(parsed).map(key => {
+    const defaultValue = (options[key] as Option<any>).default
+    if (parsed[key] === undefined) {
+      parsed[key] = defaultValue
+    }
+  })
+
+  return parsed
 }
