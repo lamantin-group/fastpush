@@ -15,7 +15,21 @@ describe(`integration test of fastpush`, function() {
   //   console.log('default values: ', result)
   // })
 
-  it(`should parse flavor option`, () => {
+  it(`should parse assemble build option`, () => {
+    const build = 'assemble'
+    const result = fastpush(['node', 'test', '--build', build])
+    chai.assert.isString(result.build)
+    chai.assert.equal(result.build, build)
+  })
+
+  it(`should parse bundle build option`, () => {
+    const build = 'bundle'
+    const result = fastpush(['node', 'test', '--build', build])
+    chai.assert.isString(result.build)
+    chai.assert.equal(result.build, build)
+  })
+
+  it(`should parse some string based flavor option`, () => {
     const flavor = 'someFlavorType'
     const result = fastpush(['node', 'test', '--flavor', flavor])
     chai.assert.isString(result.flavor)
