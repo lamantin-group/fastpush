@@ -1,7 +1,6 @@
-import { Version, assertVersion } from '.'
-import { ui } from '../../ui'
-import { readVersionFrom } from '../../utils/increment/readVersion'
+import { assertVersion, Version } from '.'
 import { Incrementer } from '../../utils/increment/Incrementer'
+import { readVersionFrom } from '../../utils/increment/readVersion'
 import { IncrementType } from '../IncrementType'
 
 /**
@@ -11,6 +10,6 @@ export async function incrementPackageJson(packageJsonPath: string, type: Increm
   const version = await readVersionFrom(packageJsonPath)
   const currentVersion = await assertVersion(version)
   const newVersion = Incrementer.increment(currentVersion, type)
-  
+
   return [version, newVersion]
 }
