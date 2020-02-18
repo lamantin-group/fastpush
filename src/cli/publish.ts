@@ -10,6 +10,7 @@ import { env, git } from '../utils'
 import { FastpushResult } from './fastpush'
 import { Hooks } from './hooks'
 import { assertPlatforms, incrementPackageJson, Version } from './utils'
+import shell from 'shelljs'
 
 export const defaultHooks: Hooks = {
   onFinish: null,
@@ -47,11 +48,13 @@ export const defaultHooks: Hooks = {
   },
 
   onPostPublish: async (platform: PlatformActions, versions: [Version, Version], buildNumbers: [number, number]) => {
-    const [oldVersion, newVersion] = versions
-    const [oldBuild, newBuild] = buildNumbers
+    const [oldVersion, version] = versions
+    const [oldBuild, build] = buildNumbers
 
-    git.commit(`Up version ${platform.type} [${oldVersion}] => [${newVersion}]`)
-    git.tag(`${platform}/${newVersion}-${newBuild}`)
+    const tag = `${platform}/${version}-${build}`
+    const whoami = process.env.USER || ''
+    git.commit(`Up version ${tag}`)
+    git.tag(tag, `Up version by ${whoami}`)
     git.push()
   },
 }
@@ -84,17 +87,17 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
 
   if (platforms.find(it => it === 'android')) {
     const androidPlatform = new AndroidPlatform(options.project)
-    await process(options, androidPlatform, newVersion, hooks)
+    await distribute(options, androidPlatform, newVersion, hooks)
   }
 
   if (platforms.find(it => it === 'ios')) {
-    await process(options, new IOSPlatform(options.project), newVersion, hooks)
+    await distribute(options, new IOSPlatform(options.project), newVersion, hooks)
   }
 
   await hooks?.onFinish()
 }
 
-async function process(options: FastpushResult, platform: PlatformActions, version: Version, hooks: Hooks) {
+async function distribute(options: FastpushResult, platform: PlatformActions, version: Version, hooks: Hooks) {
   const [oldBuildNumber, newBuildNumber] = await platform.incrementBuildNumber()
   ui.success(`Update ${platform.type} versionCode [${oldBuildNumber}] -> [${newBuildNumber}]`)
 
