@@ -36,9 +36,11 @@ export class AndroidPlatform implements PlatformActions {
       throw Error(`Expected path to build.gradle file, but ${this.buildGradlePath} is not file`)
     } else if (type === null || type === undefined) {
       throw Error(`Expected path to build.gradle file, but ${this.buildGradlePath} is ${type}`)
-    } else {
+    } else if (type === 'file') {
       // TODO: handle case when passed only buildGradlePath, but not projectDirectory and androidDirectory
-      ui.message('Found android project: ' + androidDirectory)
+      ui.message('Found buildGradlePath: ' + buildGradlePath)
+    } else {
+      throw Error(`Unexpected behavior. Found type = ${type} for buildGradlePath = ${buildGradlePath}`)
     }
   }
 

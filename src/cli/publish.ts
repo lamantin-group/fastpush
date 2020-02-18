@@ -3,7 +3,7 @@ import { android, gradle, GradleArgs, supply } from '../fastlane/android'
 import { gym } from '../fastlane/ios/gym'
 import { match } from '../fastlane/ios/match'
 import { pilot } from '../fastlane/ios/pilot'
-import { IOSPlatform, Platform, PlatformActions } from '../model/platform'
+import { IOSPlatform, Platform, PlatformActions, platformTypes } from '../model/platform'
 import { AndroidPlatform } from '../model/platform/AndroidPlatform'
 import { ui } from '../ui'
 import { env, git } from '../utils'
@@ -16,8 +16,13 @@ export const defaultHooks: Hooks = {
   onStart: async (options: FastpushResult) => {
     env.add(options.env)
 
-    await git.assertClean()
-    await env.assert()
+    if (options.silent) {
+      // don't assert clean
+      // don't assert environment
+    } else {
+      await git.assertClean()
+      await env.assert()
+    }
   },
 
   provideAndroidLanes: (options: FastpushResult) => {
@@ -64,7 +69,14 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
     platforms.push('ios')
   }
 
-  platforms = await assertPlatforms(platforms)
+  if (options.silent) {
+    // don't apply changes to platforms
+    if (!platforms || platforms.length <= 0) {
+      throw 'You should specify at least 1 platform for processing: ' + platformTypes
+    }
+  } else {
+    platforms = await assertPlatforms(platforms)
+  }
   await hooks?.onStart(options)
 
   const [oldVersion, newVersion] = await incrementPackageJson(`${options.project}/package.json`, options.increment)

@@ -1,8 +1,10 @@
-import program from 'commander'
+import commander from 'commander'
 import packageJson from '../../package.json'
 import { Option } from './Option'
 import { incrementTypes, IncrementType } from './IncrementType'
 import { trackTypes, TrackType } from './TrackType'
+
+const program = new commander.Command()
 
 export type FastpushResult = ReturnType<typeof fastpush>
 
@@ -64,9 +66,9 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
   flavor: {
     flag: 'f',
     name: 'flavor',
-    placeholder: 'null',
+    placeholder: 'flavor',
     description: 'flavor for android',
-    default: null,
+    default: 'dev', // todo: make null
   },
   build: {
     flag: 'b',
@@ -85,25 +87,26 @@ export function fastpush(args: string[] = process.argv) {
     if (option.flag) {
       program.option(
         `-${option.flag}, --${option.name}`,
-        `${option.description} <${option.placeholder}> [${option.default}]`,
+        `${option.description} [${option.placeholder}]`,
         option.default,
       )
     } else {
-      program.option(
-        `${option.name}`,
-        `${option.description} <${option.placeholder}> [${option.default}]`,
-        option.default,
-      )
+      program.option(`${option.name}`, `${option.description} <${option.placeholder}>`, option.default)
     }
   })
 
-  if (args.length <= 2) {
+  program.parse(args)
+  console.log(program.opts())
+
+  if (!args.slice(2).length) {
+    console.warn('Pass arguments') // todo: add usage examples
     program.help()
     return
   }
 
-  program.parse(args)
-
+  console.log('project = ', program.project)
+  console.log('flavor = ', program.flavor)
+  console.log('track = ', program.track)
   const parsed = {
     increment: program.increment as IncrementType,
     track: program.track as TrackType,
