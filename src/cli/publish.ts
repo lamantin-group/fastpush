@@ -11,7 +11,7 @@ import { FastpushResult } from './fastpush'
 import { Hooks } from './hooks'
 import { incrementPackageJson, Version, assertPlatforms } from './utils'
 
-const defaultHooks: Hooks = {
+export const defaultHooks: Hooks = {
   onFinish: null,
   onStart: async (options: FastpushResult) => {
     env.add(options.env)
