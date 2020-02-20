@@ -82,7 +82,6 @@ For more complicated examples, you can check implementation of CLI tool at [`src
 
 ### Hooks for build process
 
-Редко но метко
 Since most of the app distribution logic changes very rarely (but aptly), we have added hook functionality that allows you to change the distribution behavior at any stage of execution.
 
 ```ts
