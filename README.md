@@ -112,7 +112,27 @@ Exist some types of hooks:
 ## Write your own build script
 As described at [Usage](https://github.com/lamantin-group/fastpush#usage) part, you can write your own implementation of build process from scratch. For inspiration you can check our implementation [here](https://github.com/lamantin-group/publish/blob/019d6765a6d4fc500a9218927b79ce5c21ab7b69/src/cli/publish.ts#L100-L101). 
 
-If you do not want to use the build process written by us, but you want to quickly get a list of arguments as JS object, you can use our CLI parser named `fastpush` directly from code. We talk about it earlier. Check [usage example](https://github.com/lamantin-group/publish/blob/3a373277aff366d68b3d25ecde9df16e63ccff9e/src/cli/index.ts#L7)
+If you do not want to use the build process written by us, but you want to quickly get a list of arguments as JS object, you can use our CLI parser named `fastpush` directly from code
+```ts
+import { fastpush, FastpushOptions } from '@lamantin/fastpush/build/src/cli/fastpush'
+
+const options: FastpushOptions = fastpush(process.argv)
+console.log("Parsed options:", options)
+
+// options that you can get
+// {
+//     increment: "none" | "patch" | "minor" | "major";
+//     track: "production" | "beta" | "alpha";
+//     silent: boolean;
+//     project: string;
+//     rollout: number;
+//     env: string;
+//     flavor: string;
+//     build: "bundle" | "assemble";
+//     android: boolean;
+//     ios: boolean;
+// };
+```
 
 ### Roadmap
 - [x] Typing for build and publish lanes
