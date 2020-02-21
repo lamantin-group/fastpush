@@ -80,7 +80,11 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
   },
 }
 
-program.version(packageJson.version).description(packageJson.description)
+program
+  .name('faspush')
+  .version(packageJson.version)
+  .description(packageJson.description)
+  .usage('<android ios> [options]')
 
 /**
  * CLI parser that map your args input to JS object with options
