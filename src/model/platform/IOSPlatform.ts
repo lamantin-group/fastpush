@@ -10,7 +10,13 @@ export class IOSPlatform implements PlatformActions {
 
   type: Platform = 'ios'
 
-  constructor(projectDirectory: string = jetpack.cwd(), iosDirectory: string = projectDirectory + '/ios') {
+  constructor(
+    projectDirectory: string = jetpack.cwd(),
+    iosDirectory: string = jetpack
+      .cwd(projectDirectory)
+      .cwd('ios')
+      .cwd(),
+  ) {
     this.projectDirectory = projectDirectory
     this.iosDirectory = iosDirectory
     ui.message(`Setup ios project at: ${iosDirectory}`)
@@ -62,7 +68,7 @@ export class IOSPlatform implements PlatformActions {
   }
 
   private exec(command: string): ShellString {
-    const result = shell.cd(this.iosDirectory).exec(command, { silent: true })
+    const result = shell.cd(this.iosDirectory).exec(command, { silent: true, fatal: true })
     if (result.code != 0) {
       throw result.stdout
     }

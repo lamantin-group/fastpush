@@ -92,7 +92,14 @@ describe(`IOS integration`, function() {
 
   it('should ios', async () => {
     const path = jetpack.cwd()
-    await publish({ ...defaultOptions, ios: true, project: jetpack.cwd('test/assets').cwd() })
+    await publish({
+      ...defaultOptions,
+      ios: true,
+      project: jetpack
+        .cwd(path)
+        .cwd('test/assets')
+        .cwd(),
+    })
   })
 })
 
