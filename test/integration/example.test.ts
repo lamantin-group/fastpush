@@ -5,19 +5,6 @@ import { publish } from '../../src'
 
 const exec = require('child_process').exec
 
-const defaultOptions: FastpushResult = {
-  android: false,
-  ios: false,
-  build: null,
-  env: null,
-  flavor: null,
-  increment: 'none',
-  rollout: 0,
-  silent: false,
-  track: 'alpha',
-  project: '.',
-}
-
 describe(`CLI should properly parse options`, function() {
   this.timeout(10000)
 
@@ -85,22 +72,6 @@ describe(`CLI should properly parse options`, function() {
   //     }
   //   })
   // })
-})
-
-describe(`IOS integration`, function() {
-  this.timeout(300000)
-
-  it('should ios', async () => {
-    const path = jetpack.cwd()
-    await publish({
-      ...defaultOptions,
-      ios: true,
-      project: jetpack
-        .cwd(path)
-        .cwd('test/assets')
-        .cwd(),
-    })
-  })
 })
 
 // describe(`processing options with publish`, function() {

@@ -6,7 +6,6 @@ export * from './android'
 export * from './ios'
 
 export function fastlane(platformDirectory: string, task: string) {
-  const originalCwd = jetpack.cwd()
   const fastfilePath = platformDirectory + '/fastlane/Fastfile'
 
   const contextFilePath = jetpack
@@ -19,17 +18,14 @@ export function fastlane(platformDirectory: string, task: string) {
   jetpack.write(fastfilePath, fastfileModifyed)
 
   try {
-    shell.cd(platformDirectory)
-    console.log('Execute fastlane in directory:', jetpack.cwd())
-    const command = `bundle exec fastlane ` + task
-
     // shell.exec(`bundle install`)
 
     // TODO: validate user input for security policy
 
     // shelljs not supported interactive input/output so we should use child_process
-    child_process.execSync('cd ' + platformDirectory)
-    child_process.execSync(command.trim(), { stdio: 'inherit' })
+    // child_process.execSync('cd ' + jetpack.cwd())
+    console.log('Execute fastlane in directory:', platformDirectory)
+    child_process.execSync(`bundle exec fastlane ${task}`.trim(), { stdio: 'inherit' })
   } catch (e) {
     throw e
   } finally {

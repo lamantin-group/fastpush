@@ -4,6 +4,7 @@ import { Option } from './Option'
 import { incrementTypes, IncrementType } from './IncrementType'
 import { trackTypes, TrackType } from './TrackType'
 import { ui } from '../ui/index'
+import jetpack from 'fs-jetpack'
 
 const program = new commander.Command()
 
@@ -48,7 +49,7 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
     name: 'project',
     description: 'path to root of project',
     placeholder: 'path',
-    default: '.',
+    default: jetpack.cwd(),
   },
   rollout: {
     flag: 'r',
