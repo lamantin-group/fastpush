@@ -3,6 +3,7 @@ import packageJson from '../../package.json'
 import { Option } from './Option'
 import { incrementTypes, IncrementType } from './IncrementType'
 import { trackTypes, TrackType } from './TrackType'
+import { ui } from '../ui/index'
 
 const program = new commander.Command()
 
@@ -97,6 +98,23 @@ export function fastpush(args: string[] = process.argv) {
     } else {
       program.option(`${option.name}`, `${option.description} <${option.placeholder}>`, option.default)
     }
+  })
+
+  program.on('--help', function() {
+    console.log('')
+    console.log('Examples:')
+
+    console.log('  Publish android apk with patch increment version:')
+    ui.warn('  yarn fastpush android --increment patch --build assemble')
+    console.log('')
+
+    console.log('  Publish android bundle and ios with minor increment version, to beta track:')
+    ui.warn('  yarn fastpush android ios --increment minor --track beta --build bundle')
+    console.log('')
+
+    console.log('  Publish ios without increment version and with custom environment:')
+    ui.warn('  yarn fastpush ios --increment none --env path/to/.env')
+    console.log('')
   })
 
   program.parse(args)

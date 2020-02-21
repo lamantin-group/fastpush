@@ -1,5 +1,4 @@
 import { Version } from '../../cli/utils'
-import { Lane } from '../../fastlane/Lane'
 export * from './AndroidPlatform'
 export * from './IOSPlatform'
 

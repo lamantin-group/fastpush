@@ -41,8 +41,8 @@ export type Hooks = {
   ) => Promise<void>
 
   /**
+   * Terminate operation.
    * Called when catched unexpected error
-   * Throw exception inside promise, if you need stop build process, otherwise it will be continue
    */
   onError?: (e: any) => Promise<void>
 

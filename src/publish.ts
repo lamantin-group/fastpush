@@ -1,16 +1,16 @@
-import { ios } from '../fastlane'
-import { android, gradle, GradleArgs, supply } from '../fastlane/android'
-import { gym } from '../fastlane/ios/gym'
-import { match } from '../fastlane/ios/match'
-import { pilot } from '../fastlane/ios/pilot'
-import { IOSPlatform, Platform, PlatformActions, platformTypes } from '../model/platform'
-import { AndroidPlatform } from '../model/platform/AndroidPlatform'
-import { ui } from '../ui'
-import { env, git } from '../utils'
-import { FastpushResult } from './fastpush'
-import { Hooks } from './hooks'
-import { assertPlatforms, Version } from './utils'
-import { incrementPackageJson } from '../model/incrementPackageJson'
+import { ios } from './fastlane'
+import { android, gradle, GradleArgs, supply } from './fastlane/android'
+import { gym } from './fastlane/ios/gym'
+import { match } from './fastlane/ios/match'
+import { pilot } from './fastlane/ios/pilot'
+import { IOSPlatform, Platform, PlatformActions, platformTypes } from './model/platform'
+import { AndroidPlatform } from './model/platform/AndroidPlatform'
+import { ui } from './ui'
+import { env, git } from './utils'
+import { FastpushResult } from './cli/fastpush'
+import { Hooks } from './cli/hooks'
+import { assertPlatforms, Version } from './cli/utils'
+import { incrementPackageJson } from './model/incrementPackageJson'
 
 export const defaultHooks: Hooks = {
   onFinish: null,
@@ -99,7 +99,7 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
 
     await hooks.onFinish?.()
   } catch (e) {
-    await hooks?.onError?.(e)
+    await hooks.onError?.(e)
   }
 }
 
