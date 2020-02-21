@@ -3,7 +3,7 @@ import { ui } from '../../ui'
 
 export async function assertEnvironment() {
   ui.warn('\n===ENVIRONMENT===')
-  ui.message(`${process.env}`)
+  ui.message(`${JSON.stringify(process.env, null, '  ')}`)
   const isOk = await ask('Environment is ok?', true)
   if (isOk) {
     return true
