@@ -40,6 +40,12 @@ export type Hooks = {
     buildNumbers: [number, number],
   ) => Promise<void>
 
+  /**
+   * Called when catched unexpected error
+   * Throw exception inside promise, if you need stop build process, otherwise it will be continue
+   */
+  onError?: (e: any) => Promise<void>
+
   provideAndroidLanes?: (options: FastpushResult) => AndroidLane[]
   provideIOSLanes?: (options: FastpushResult) => IOSLane[]
 }

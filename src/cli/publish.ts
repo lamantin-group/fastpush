@@ -9,8 +9,8 @@ import { ui } from '../ui'
 import { env, git } from '../utils'
 import { FastpushResult } from './fastpush'
 import { Hooks } from './hooks'
-import { assertPlatforms, incrementPackageJson, Version } from './utils'
-import shell from 'shelljs'
+import { assertPlatforms, Version } from './utils'
+import { incrementPackageJson } from '../model/incrementPackageJson'
 
 export const defaultHooks: Hooks = {
   onFinish: null,
@@ -64,6 +64,9 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
     ...defaultHooks,
     ...passedHooks,
   }
+
+  await hooks.onStart?.(options)
+
   let platforms: Platform[] = []
   if (options.android) {
     platforms.push('android')
@@ -72,29 +75,32 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
     platforms.push('ios')
   }
 
-  if (options.silent) {
-    // don't apply changes to platforms
-    if (!platforms || platforms.length <= 0) {
-      throw 'You should specify at least 1 platform for processing: ' + platformTypes
+  try {
+    if (options.silent) {
+      // don't apply changes to platforms
+      if (!platforms || platforms.length <= 0) {
+        throw 'You should specify at least 1 platform for processing: ' + platformTypes
+      }
+    } else {
+      platforms = await assertPlatforms(platforms)
     }
-  } else {
-    platforms = await assertPlatforms(platforms)
+
+    const [oldVersion, newVersion] = await incrementPackageJson(options.increment, `${options.project}/package.json`)
+    ui.success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
+
+    if (platforms.find(it => it === 'android')) {
+      const androidPlatform = new AndroidPlatform(options.project)
+      await distribute(options, androidPlatform, newVersion, hooks)
+    }
+
+    if (platforms.find(it => it === 'ios')) {
+      await distribute(options, new IOSPlatform(options.project), newVersion, hooks)
+    }
+
+    await hooks.onFinish?.()
+  } catch (e) {
+    await hooks?.onError?.(e)
   }
-  await hooks.onStart?.(options)
-
-  const [oldVersion, newVersion] = await incrementPackageJson(`${options.project}/package.json`, options.increment)
-  ui.success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
-
-  if (platforms.find(it => it === 'android')) {
-    const androidPlatform = new AndroidPlatform(options.project)
-    await distribute(options, androidPlatform, newVersion, hooks)
-  }
-
-  if (platforms.find(it => it === 'ios')) {
-    await distribute(options, new IOSPlatform(options.project), newVersion, hooks)
-  }
-
-  await hooks.onFinish?.()
 }
 
 async function distribute(options: FastpushResult, platform: PlatformActions, version: Version, hooks: Hooks) {

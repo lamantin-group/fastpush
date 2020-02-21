@@ -1,4 +1,5 @@
 import { Version } from '../../cli/utils'
+import { Lane } from '../../fastlane/Lane'
 export * from './AndroidPlatform'
 export * from './IOSPlatform'
 
@@ -13,6 +14,7 @@ export interface PlatformActions {
   setVersionName(newVersion: Version): Promise<[Version, Version]>
   incrementBuildNumber(): Promise<[number, number]>
   getBuildNumber(): Promise<number>
+  // fastlane(lanes: Lane): Promise<void>
 
   /**
    * Pass or throw error if credentials not set for this project
