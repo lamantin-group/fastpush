@@ -20,6 +20,9 @@ export class IOSPlatform implements PlatformActions {
     this.projectDirectory = projectDirectory
     this.iosDirectory = iosDirectory
     ui.message(`Setup ios project at: ${iosDirectory}`)
+
+    // move back
+    jetpack.cwd(projectDirectory)
   }
 
   /**
