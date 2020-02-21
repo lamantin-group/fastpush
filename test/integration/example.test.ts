@@ -1,13 +1,24 @@
 import jetpack = require('fs-jetpack')
-import shell from 'shelljs'
-import { fastpush } from '../../src/cli/fastpush'
-import { publish } from '../../src/cli/publish'
 import chai from 'chai'
+import { fastpush, FastpushResult } from '../../src/cli/fastpush'
+import { publish } from '../../src'
 
-import path from 'path'
 const exec = require('child_process').exec
 
-describe(`integration test of fastpush`, function() {
+const defaultOptions: FastpushResult = {
+  android: false,
+  ios: false,
+  build: null,
+  env: null,
+  flavor: null,
+  increment: 'none',
+  rollout: 0,
+  silent: false,
+  track: 'alpha',
+  project: '.',
+}
+
+describe(`CLI should properly parse options`, function() {
   this.timeout(10000)
 
   // it(`should show help for program`, done => {
@@ -74,6 +85,15 @@ describe(`integration test of fastpush`, function() {
   //     }
   //   })
   // })
+})
+
+describe(`IOS integration`, function() {
+  this.timeout(300000)
+
+  it('should ios', async () => {
+    const path = jetpack.cwd()
+    await publish({ ...defaultOptions, ios: true, project: jetpack.cwd('test/assets').cwd() })
+  })
 })
 
 // describe(`processing options with publish`, function() {

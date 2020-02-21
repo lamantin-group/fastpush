@@ -2,6 +2,7 @@ import shell, { ShellString } from 'shelljs'
 import { Platform, PlatformActions } from '.'
 import { Version } from '../../cli/utils'
 import jetpack = require('fs-jetpack')
+import { ui } from '../../ui'
 
 export class IOSPlatform implements PlatformActions {
   private projectDirectory: string
@@ -12,6 +13,7 @@ export class IOSPlatform implements PlatformActions {
   constructor(projectDirectory: string = jetpack.cwd(), iosDirectory: string = projectDirectory + '/ios') {
     this.projectDirectory = projectDirectory
     this.iosDirectory = iosDirectory
+    ui.message(`Setup ios project at: ${iosDirectory}`)
   }
 
   /**
