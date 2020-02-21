@@ -21,10 +21,10 @@
     "url": "https://github.com/lamantin-group/fastpush"
   },
   "scripts": {
-    "prepublishOnly": "npm version patch && yarn build && cp -r assets build",
+    "prepublishOnly": "yarn build && npm version patch && cp -r assets build",
     "postpublish": "git push",
     "lint": "eslint src/**/*.ts --fix",
-    "build": "tsc && chmod -R +x ./build",
+    "build": "rm -rf build && tsc && chmod -R +x ./build",
     "start:android": "ts-node ./src/cli/index.ts android --track beta",
     "start:android:project": "ts-node ./src/cli/index.ts android --track beta -p /Users/whalemare/Development/react-native/myholiday",
     "start:help": "ts-node ./src/cli/index.ts -h",
