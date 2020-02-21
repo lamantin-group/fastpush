@@ -1,23 +1,24 @@
 import { exec } from 'shelljs'
 import { ask } from '../../ui/read'
+import { ui } from '../../ui'
 
 /**
  * Throw error if git directory is not clean on return *true* otherwise
  */
 export async function assertClean(): Promise<boolean> {
-  console.log('🔍 Trying find uncommitted changes...')
+  ui.message('🔍 Trying find uncommitted changes...')
   const result = exec('git status -s').trim()
 
   if (result.length === 0) {
-    console.log('Git directory is clean')
+    ui.message('🌝 Git directory is clean')
     return true
   } else {
     const isContinue = await ask('You has uncommitted changes. Continue?', true)
     if (isContinue) {
-      console.log('You are crazy...')
+      ui.message('🌚 You are crazy...')
       return true
     } else {
-      throw 'Git directory is not clean'
+      throw '🌚 Git directory is not clean'
     }
   }
 }

@@ -15,7 +15,12 @@ import { incrementPackageJson } from './model/incrementPackageJson'
 export const defaultHooks: Hooks = {
   onFinish: null,
   onStart: async (options: FastpushResult) => {
-    env.add(options.env)
+    if (options.env) {
+      if (!options.silent) {
+        ui.message('Add environment file:' + options.env)
+      }
+      env.add(options.env)
+    }
 
     if (options.silent) {
       // don't assert clean
@@ -44,7 +49,7 @@ export const defaultHooks: Hooks = {
   },
 
   provideIOSLanes: (options: FastpushResult) => {
-    return [match('appstore'), gym(), pilot()]
+    return [match('appstore'), gym({ clean: true }), pilot()]
   },
 
   onPostPublish: async (platform: PlatformActions, versions: [Version, Version], buildNumbers: [number, number]) => {
@@ -111,9 +116,9 @@ async function distribute(options: FastpushResult, platform: PlatformActions, ve
   ui.success(`Update ${platform.type} versionName [${oldVersion}] -> [${newVersion}]`)
 
   if (platform.type === 'ios') {
-    ios(hooks.provideIOSLanes(options))
+    ios(hooks.provideIOSLanes(options), options.project)
   } else if (platform.type === 'android') {
-    android(hooks.provideAndroidLanes(options))
+    android(hooks.provideAndroidLanes(options), options.project)
   } else {
     throw `Unexpected platform type ${platform.type}`
   }

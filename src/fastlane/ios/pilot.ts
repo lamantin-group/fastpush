@@ -55,6 +55,13 @@ export type PilotArgs = {
   wait_processing_interval?: number
 }
 
+/**
+ * The best way to manage your TestFlight testers and builds from your terminal
+ * Pilot makes it easier to manage your app on Apple’s TestFlight.
+ * 
+ * Pilot uses spaceship.airforce to interact with App Store Connect 🚀
+ * @param args 
+ */
 export function pilot(args?: PilotArgs): IOSLane {
   return {
     type: "ios",
