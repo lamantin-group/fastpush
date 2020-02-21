@@ -21,7 +21,7 @@
     "url": "https://github.com/lamantin-group/fastpush"
   },
   "scripts": {
-    "prepublishOnly": "yarn build && npm version patch && cp -r assets build",
+    "prepublishOnly": "yarn build && cp -r assets build && npm version patch",
     "postpublish": "git push",
     "lint": "eslint src/**/*.ts --fix",
     "build": "rm -rf build && tsc && chmod -R +x ./build",
