@@ -67,7 +67,8 @@ export const defaultHooks: Hooks = {
 }
 
 export async function publish(options: FastpushResult, passedHooks?: Hooks) {
-  ui.message('fastpush for ' + options.project)
+  ui.success('==fastpush==')
+  ui.success('Setup for project: ' + options.project)
   shell.cd(options.project)
   // child_process.execSync('cd ' + options.project)
 
