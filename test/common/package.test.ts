@@ -1,7 +1,8 @@
 import chai from 'chai'
-import { readVersionFrom, saveVersionTo } from '../src'
+import { readVersionFrom, saveVersionTo } from '../../src'
+import jetpack from 'fs-jetpack'
 
-const file = __dirname + '/assets/package.json'
+const file = jetpack.cwd('test/assets/package.json').cwd()
 
 function nextInt(): number {
   return Math.round(Math.random() * 10)

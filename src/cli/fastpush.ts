@@ -79,6 +79,13 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
     placeholder: 'assemble|bundle',
     default: 'assemble',
   },
+  scheme: {
+    flag: 'sc',
+    name: 'scheme',
+    placeholder: 'app-scheme',
+    description: 'Scheme/target for ios project',
+    default: null,
+  },
 }
 
 program
@@ -141,6 +148,7 @@ export function fastpush(args: string[] = process.argv) {
     build: program.build as 'assemble' | 'bundle',
     android: program.android as boolean,
     ios: program.ios as boolean,
+    scheme: program.schema as string,
     // platforms: program.platforms as Platform[],
   }
 

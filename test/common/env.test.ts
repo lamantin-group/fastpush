@@ -1,4 +1,4 @@
-import { env } from '../src'
+import { env } from '../../src'
 import chai from 'chai'
 
 describe('environment utils', () => {
