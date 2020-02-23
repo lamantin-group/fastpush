@@ -70,7 +70,7 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
     name: 'flavor',
     placeholder: 'flavor',
     description: 'flavor for android',
-    default: 'dev', // todo: make null
+    default: null,
   },
   build: {
     flag: 'b',
