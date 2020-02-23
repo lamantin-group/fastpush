@@ -87,6 +87,8 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
     platforms.push('ios')
   }
 
+  ui.success(`Publishing for: [${platforms.join(', ')}]`)
+
   try {
     if (options.silent) {
       // don't apply changes to platforms

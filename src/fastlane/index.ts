@@ -24,8 +24,15 @@ export function fastlane(platformDirectory: string, task: string) {
 
     // shelljs not supported interactive input/output so we should use child_process
     // child_process.execSync('cd ' + jetpack.cwd())
-    console.log('Execute fastlane in directory:', platformDirectory)
-    child_process.execSync(`bundle exec fastlane ${task}`.trim(), { stdio: 'inherit' })
+    const cwd = shell.pwd().stdout
+    try {
+      console.log('Execute fastlane in directory:', cwd)
+      child_process.execSync(`cd ${platformDirectory} && bundle exec fastlane ${task}`.trim(), { stdio: 'inherit' })
+    } catch (e) {
+      throw e
+    } finally {
+      child_process.execSync(`cd ${cwd}`)
+    }
   } catch (e) {
     throw e
   } finally {

@@ -3,6 +3,7 @@ import { Incrementer } from '../utils/increment/Incrementer'
 import { readVersionFrom } from '../utils/increment/readVersion'
 import { IncrementType } from '../cli/IncrementType'
 import jetpack = require('fs-jetpack')
+import { ui } from '../ui'
 
 /**
  * Increment version in packageJson and return array with [oldVersion, newVersion]
