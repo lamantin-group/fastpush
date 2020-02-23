@@ -11,6 +11,7 @@ import { FastpushResult } from './cli/fastpush'
 import { Hooks } from './cli/hooks'
 import { assertPlatforms, Version } from './cli/utils'
 import { incrementPackageJson } from './model/incrementPackageJson'
+import child_process from 'child_process'
 
 export const defaultHooks: Hooks = {
   onFinish: null,
@@ -65,6 +66,8 @@ export const defaultHooks: Hooks = {
 }
 
 export async function publish(options: FastpushResult, passedHooks?: Hooks) {
+  child_process.execSync('cd ' + options.project)
+
   const hooks = {
     ...defaultHooks,
     ...passedHooks,
