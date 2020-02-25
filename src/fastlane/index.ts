@@ -1,6 +1,7 @@
 import child_process from 'child_process'
 import shell from 'shelljs'
 import jetpack = require('fs-jetpack')
+import { ui } from '../ui'
 
 export * from './android'
 export * from './ios'
@@ -14,8 +15,23 @@ export function fastlane(platformDirectory: string, task: string) {
     .path('Context.rb')
   // const ruby = jetpack.read(rubyPath)
   const fastfileOriginal = jetpack.read(fastfilePath)
-  const fastfileModifyed = `import '${contextFilePath}'\n${fastfileOriginal}`
-  jetpack.write(fastfilePath, fastfileModifyed)
+  const importLine = `import '${contextFilePath}'`
+
+  if (fastfileOriginal.includes('Context.rb')) {
+    ui.message(`Fastfile ${contextFilePath} already contains Context.rb`)
+  } else {
+    const fastfileModifyed = `${importLine}\n${fastfileOriginal}`
+    jetpack.write(fastfilePath, fastfileModifyed)
+  }
+
+  function revertChanges() {
+    jetpack.write(fastfilePath, fastfileOriginal)
+  }
+
+  process.on('exit', revertChanges)
+  process.on('disconnect', revertChanges)
+  process.on('uncaughtException', revertChanges)
+  process.on('unhandledRejection', revertChanges)
 
   try {
     // shell.exec(`bundle install`)
@@ -36,6 +52,6 @@ export function fastlane(platformDirectory: string, task: string) {
   } catch (e) {
     throw e
   } finally {
-    jetpack.write(fastfilePath, fastfileOriginal)
+    revertChanges()
   }
 }
