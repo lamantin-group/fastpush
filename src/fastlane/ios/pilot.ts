@@ -4,7 +4,9 @@ import { mapObjectToArgs } from "../mappers"
 export type PilotArgs = {
 
   /**
-   * pass *true* to only upload the build
+   * You can skip the submission of the binary, 
+   * which means, the ipa file will only be uploaded and not distributed to testers.
+   * Pass _true_ to only upload build without distribution
    */
   skip_submission?: boolean
 
