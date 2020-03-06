@@ -1,18 +1,17 @@
+import shell from 'shelljs'
+import { FastpushResult } from './cli/fastpush'
+import { Hooks } from './cli/hooks'
+import { assertPlatforms, Version } from './cli/utils'
 import { ios } from './fastlane'
 import { android, gradle, GradleArgs, supply } from './fastlane/android'
 import { gym } from './fastlane/ios/gym'
 import { match } from './fastlane/ios/match'
 import { pilot } from './fastlane/ios/pilot'
+import { incrementPackageJson } from './model/incrementPackageJson'
 import { IOSPlatform, Platform, PlatformActions, platformTypes } from './model/platform'
 import { AndroidPlatform } from './model/platform/AndroidPlatform'
 import { ui } from './ui'
 import { env, git } from './utils'
-import { FastpushResult } from './cli/fastpush'
-import { Hooks } from './cli/hooks'
-import { assertPlatforms, Version } from './cli/utils'
-import { incrementPackageJson } from './model/incrementPackageJson'
-import child_process from 'child_process'
-import shell from 'shelljs'
 
 export const defaultHooks: Hooks = {
   onFinish: null,
@@ -51,7 +50,11 @@ export const defaultHooks: Hooks = {
   },
 
   provideIOSLanes: (options: FastpushResult) => {
-    return [match('appstore'), gym({ clean: true }), pilot({ skip_waiting_for_build_processing: true, skip_submission: true })]
+    return [
+      match('appstore'),
+      gym({ clean: true }),
+      pilot({ skip_waiting_for_build_processing: true, skip_submission: true }),
+    ]
   },
 
   onPostPublish: async (platform: PlatformActions, versions: [Version, Version], buildNumbers: [number, number]) => {
