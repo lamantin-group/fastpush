@@ -1,9 +1,8 @@
+import { IncrementType } from '../cli/IncrementType'
 import { assertVersion, Version } from '../cli/utils'
 import { Incrementer } from '../utils/increment/Incrementer'
-import { readVersionFrom } from '../utils/increment/readVersion'
-import { IncrementType } from '../cli/IncrementType'
+import { readVersionFrom, saveVersionTo } from '../utils/increment/readVersion'
 import jetpack = require('fs-jetpack')
-import { ui } from '../ui'
 
 /**
  * Increment version in packageJson and return array with [oldVersion, newVersion]
@@ -15,6 +14,5 @@ export async function incrementPackageJson(
   const version = await readVersionFrom(packageJsonPath)
   const currentVersion = await assertVersion(version)
   const newVersion = Incrementer.increment(currentVersion, type)
-
-  return [version, newVersion]
+  return saveVersionTo(packageJsonPath, newVersion)
 }

@@ -16,6 +16,7 @@ export async function readVersionFrom(file: string): Promise<Version> {
  * Save version to file
  * @param file input
  * @param version
+ * @return [oldVersion, newVersion]
  */
 export async function saveVersionTo(file: string, version: string): Promise<[Version, Version]> {
   const oldVersion = await readVersionFrom(file)
