@@ -80,7 +80,7 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
     default: 'assemble',
   },
   scheme: {
-    flag: 'sc',
+    flag: 'c',
     name: 'scheme',
     placeholder: 'app-scheme',
     description: 'Scheme/target for ios project',
@@ -148,7 +148,7 @@ export function fastpush(args: string[] = process.argv) {
     build: program.build as 'assemble' | 'bundle',
     android: program.android as boolean,
     ios: program.ios as boolean,
-    scheme: program.schema as string,
+    scheme: program.scheme as string,
     // platforms: program.platforms as Platform[],
   }
 

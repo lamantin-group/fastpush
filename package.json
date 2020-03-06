@@ -36,9 +36,6 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@types/commander": "^2.12.2",
-    "@types/jest": "^25.1.1",
-    "@types/node-telegram-bot-api": "^0.40.2",
     "asciiart-logo": "^0.2.6",
     "boxen": "4.2.0",
     "chalk": "^3.0.0",
@@ -47,11 +44,9 @@
     "fs-jetpack": "^2.2.3",
     "gradle-to-js": "^2.0.0",
     "inquirer": "7.0.4",
-    "jest": "25.1.0",
     "node-telegram-bot-api": "^0.40.0",
     "ora": "4.0.3",
-    "shelljs": "^0.8.3",
-    "ts-jest": "25.2.0"
+    "shelljs": "^0.8.3"
   },
   "husky": {
     "hooks": {
@@ -59,6 +54,11 @@
     }
   },
   "devDependencies": {
+    "jest": "25.1.0",
+    "ts-jest": "25.2.0",
+    "@types/commander": "^2.12.2",
+    "@types/jest": "^25.1.1",
+    "@types/node-telegram-bot-api": "^0.40.2",
     "@types/chai": "^4.2.8",
     "@types/inquirer": "^6.5.0",
     "@types/shelljs": "^0.8.6",
