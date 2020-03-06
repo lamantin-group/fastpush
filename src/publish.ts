@@ -52,7 +52,7 @@ export const defaultHooks: Hooks = {
   provideIOSLanes: (options: FastpushResult) => {
     return [
       match('appstore'),
-      gym({ clean: true }),
+      gym({ clean: true, scheme: options.scheme }),
       pilot({ skip_waiting_for_build_processing: true, skip_submission: true }),
     ]
   },

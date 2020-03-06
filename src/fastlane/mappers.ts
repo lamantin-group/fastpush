@@ -21,14 +21,20 @@ export function mapObjectToArgs(object: Record<string, any>): Argument[] {
     throw "'object' param must be object"
   }
 
-  return Object.keys(object).map(key => {
-    if (typeof object[key] === 'object' || typeof object[key] === 'function') {
-      throw `Value of ${key} should be plain, not object or function`
-    }
+  return Object.keys(object)
+    .filter(key => {
+      const value = object[key]
+      return !!value
+    })
+    .map(key => {
+      const value = object[key]
+      if (typeof value === 'object' || typeof value === 'function') {
+        throw `Value of ${key} should be plain, not object or function`
+      }
 
-    return {
-      name: key,
-      value: object[key],
-    }
-  })
+      return {
+        name: key,
+        value: value,
+      }
+    })
 }
