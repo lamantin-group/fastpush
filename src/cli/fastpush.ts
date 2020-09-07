@@ -86,10 +86,17 @@ const options: { [key in keyof FastpushResult]: Option<FastpushResult[key]> } = 
     description: 'Scheme/target for ios project',
     default: null,
   },
+  skip: {
+    flag: 'sm',
+    name: 'skip-meta',
+    description: 'skip all metadata when uploading (metadata, changelogs, images, screenshots)',
+    placeholder: 'true|false',
+    default: true,
+  },
 }
 
 program
-  .name('faspush')
+  .name('fastpush')
   .version(packageJson.version)
   .description(packageJson.description)
   .usage('<android ios> [options]')
@@ -149,6 +156,7 @@ export function fastpush(args: string[] = process.argv) {
     android: program.android as boolean,
     ios: program.ios as boolean,
     scheme: program.scheme as string,
+    skip: program.skip as boolean,
     // platforms: program.platforms as Platform[],
   }
 

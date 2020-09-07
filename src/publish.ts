@@ -45,7 +45,13 @@ export const defaultHooks: Hooks = {
       gradle('clean'),
       // todo: validate GradleArgTask
       gradle(options.build, buildPayload),
-      supply({ track: options.track }),
+      supply({
+        track: options.track,
+        skip_upload_changelogs: options.skip,
+        skip_upload_images: options.skip,
+        skip_upload_metadata: options.skip,
+        skip_upload_screenshots: options.skip,
+      }),
     ]
   },
 
