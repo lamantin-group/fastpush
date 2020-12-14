@@ -2,6 +2,7 @@ import child_process from 'child_process'
 import shell from 'shelljs'
 import jetpack = require('fs-jetpack')
 import { ui } from '../ui'
+import * as path from 'path'
 
 export * from './android'
 export * from './ios'
@@ -17,15 +18,25 @@ export function fastlane(platformDirectory: string, task: string) {
   const fastfileOriginal = jetpack.read(fastfilePath)
   const importLine = `import '${contextFilePath}'`
 
-  if (fastfileOriginal.includes('Context.rb')) {
+  const hadFolder = jetpack.exists(path.dirname(fastfilePath))
+  if (!fastfileOriginal) {
+    jetpack.file(fastfilePath)
+  }
+
+  if (fastfileOriginal?.includes('Context.rb')) {
     ui.message(`Fastfile ${contextFilePath} already contains Context.rb`)
   } else {
-    const fastfileModifyed = `${importLine}\n${fastfileOriginal}`
+    const fastfileModifyed = `${importLine}\n${fastfileOriginal || ''}`
     jetpack.write(fastfilePath, fastfileModifyed)
   }
 
   function revertChanges() {
-    jetpack.write(fastfilePath, fastfileOriginal)
+    if (fastfileOriginal) {
+      jetpack.write(fastfilePath, fastfileOriginal)
+    } else {
+      const removePath = hadFolder ? fastfilePath : path.dirname(fastfilePath)
+      jetpack.remove(removePath)
+    }
   }
 
   process.on('exit', revertChanges)
