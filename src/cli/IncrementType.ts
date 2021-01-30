@@ -1,3 +1,2 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
-export const incrementTypes = <const>['none', 'patch', 'minor', 'major']
+export const incrementTypes = ['none', 'patch', 'minor', 'major'] as const
 export type IncrementType = typeof incrementTypes[number]

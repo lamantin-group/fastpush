@@ -22,3 +22,4 @@ describe('file read and write utils', () => {
     chai.assert.equal(generatedVersion, newVersion, 'Writed versions should be identical')
   })
 })
+c

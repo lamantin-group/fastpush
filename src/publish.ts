@@ -111,12 +111,12 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
     const [oldVersion, newVersion] = await incrementPackageJson(options.increment, `${options.project}/package.json`)
     ui.success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
 
-    if (platforms.find(it => it === 'android')) {
+    if (platforms.includes('android')) {
       const androidPlatform = new AndroidPlatform(options.project)
       await distribute(options, androidPlatform, newVersion, hooks)
     }
 
-    if (platforms.find(it => it === 'ios')) {
+    if (platforms.includes('ios')) {
       await distribute(options, new IOSPlatform(options.project), newVersion, hooks)
     }
 
