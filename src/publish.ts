@@ -7,9 +7,9 @@ import { android, gradle, GradleArgs, supply } from './fastlane/android'
 import { gym } from './fastlane/ios/gym'
 import { match } from './fastlane/ios/match'
 import { pilot } from './fastlane/ios/pilot'
-import { incrementPackageJson } from './model/incrementPackageJson'
-import { IOSPlatform, Platform, PlatformActions, platformTypes } from './model/platform'
-import { AndroidPlatform } from './model/platform/AndroidPlatform'
+import { incrementPackageJson } from './utils/increment/incrementPackageJson'
+import { IOSPlatform, Platform, PlatformActions, platformTypes } from './utils/platform'
+import { AndroidPlatform } from './utils/platform/AndroidPlatform'
 import { ui } from './ui'
 import { env, git } from './utils'
 
@@ -111,12 +111,12 @@ export async function publish(options: FastpushResult, passedHooks?: Hooks) {
     const [oldVersion, newVersion] = await incrementPackageJson(options.increment, `${options.project}/package.json`)
     ui.success(`Up package.json version from [${oldVersion}] -> [${newVersion}]`)
 
-    if (platforms.find(it => it === 'android')) {
+    if (platforms.includes('android')) {
       const androidPlatform = new AndroidPlatform(options.project)
       await distribute(options, androidPlatform, newVersion, hooks)
     }
 
-    if (platforms.find(it => it === 'ios')) {
+    if (platforms.includes('ios')) {
       await distribute(options, new IOSPlatform(options.project), newVersion, hooks)
     }
 

@@ -1,6 +1,6 @@
 import jetpack = require('fs-jetpack')
 import { expect } from 'chai'
-import { AndroidPlatform } from '../../src/model/platform'
+import { AndroidPlatform } from '../../src'
 
 function nextInt(): number {
   return Math.round(Math.random() * 10)

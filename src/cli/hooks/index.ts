@@ -1,5 +1,5 @@
 import { AndroidLane, IOSLane } from '../../fastlane'
-import { PlatformActions } from '../../model/platform'
+import { PlatformActions } from '../../utils/platform'
 import { FastpushResult } from '../fastpush'
 import { Version } from '../utils'
 

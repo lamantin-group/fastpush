@@ -1,7 +1,7 @@
-import { IncrementType } from '../cli/IncrementType'
-import { assertVersion, Version } from '../cli/utils'
-import { Incrementer } from '../utils/increment/Incrementer'
-import { readVersionFrom, saveVersionTo } from '../utils/increment/readVersion'
+import { IncrementType } from '../../cli/IncrementType'
+import { assertVersion, Version } from '../../cli/utils'
+import { Incrementer } from './Incrementer'
+import { readVersionFrom, saveVersionTo } from './readVersion'
 import jetpack = require('fs-jetpack')
 
 /**

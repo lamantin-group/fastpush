@@ -1,7 +1,3 @@
-import { assertEnvironment } from './assertEnvironment'
-import { addFile } from './addFile'
-
-export const env = {
-  assert: assertEnvironment,
-  add: addFile,
-}
+export * from './addFile'
+export * from './assertEnvironment'
+export * from './env'
