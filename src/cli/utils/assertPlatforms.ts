@@ -13,10 +13,9 @@ export type PlatformAtLeastOne =
 export async function assertPlatforms(platforms: Platform[]): Promise<PlatformAtLeastOne> {
   if (!platforms || platforms.length <= 0) {
     console.warn('platforms is empty')
-    const selectedPlatforms: PlatformAtLeastOne = await ui.select<Platform>(
-      'You should specify platform for publishing',
-      [...platformTypes],
-    )
+    const selectedPlatforms = (await ui.select<Platform>('You should specify platform for publishing', [
+      ...platformTypes,
+    ])) as PlatformAtLeastOne
     return assertPlatforms(selectedPlatforms)
   }
 
