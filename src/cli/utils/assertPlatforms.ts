@@ -1,5 +1,5 @@
 import { ui } from '../../ui'
-import { Platform, platformTypes } from '../../model/platform'
+import { Platform, platformTypes } from '../../utils/platform'
 
 export type PlatformAtLeastOne =
   | [typeof platformTypes[0]]
