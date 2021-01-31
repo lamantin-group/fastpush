@@ -11,7 +11,7 @@ export type MatchArgs = {
   template_name?: string
 
   /**
-   * Only fetch existing certificates and profiles, don't generate new ones	
+   * Only fetch existing certificates and profiles, don't generate new ones
    */
   readonly?: boolean
 
@@ -21,9 +21,14 @@ export type MatchArgs = {
   skip_provisioning_profiles?: boolean
 
   /**
-   * Set the provisioning profile's platform to work with (i.e. ios, tvos, macos)	
+   * Set the provisioning profile's platform to work with (i.e. ios, tvos, macos)
    */
   platform?: "ios" | "macos" | "tvos"
+
+  /**
+   * The bundle identifier(s) of your app (comma-separated string or array of strings)
+   */
+  app_identifier?: string
 };
 
 /**
