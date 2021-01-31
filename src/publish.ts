@@ -11,7 +11,8 @@ import { incrementPackageJson } from './utils/increment/incrementPackageJson'
 import { IOSPlatform, Platform, PlatformActions, platformTypes } from './utils/platform'
 import { AndroidPlatform } from './utils/platform/AndroidPlatform'
 import { ui } from './ui'
-import { env, git } from './utils'
+import { env } from './utils'
+import { git } from './utils/git/git'
 
 export const defaultHooks: Hooks = {
   onFinish: null,
