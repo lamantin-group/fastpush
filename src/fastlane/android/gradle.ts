@@ -15,6 +15,43 @@ export type GradleArgs = {
    * The build type that you want the task for, e.g. Release. Useful for some tasks such as assemble
    */
   build_type?: "Debug" | "Release"
+
+  /**
+   * The multiple gradle tasks that you want to execute, e.g. [assembleDebug, bundleDebug]
+   */
+  tasks?: string[]
+
+  /**
+   * All parameter flags you want to pass to the gradle command, e.g. --exitcode --xml file.xml
+   */
+  flags?: string
+
+  /**
+   * The root directory of the gradle project
+   */
+  project_dir?: string
+
+  /**
+   * Gradle properties to be exposed to the gradle script
+   */
+  properties?: {[key in string]: string}
+
+  /**
+   * Gradle system properties to be exposed to the gradle script
+   */
+  system_properties?: {[key in string]: string}
+
+  /**
+   * Control whether the generated Gradle command is printed as output before running it (true/false)
+   * @default true
+   */
+  print_command?: boolean
+
+  /**
+   * Control whether the output produced by given Gradle command is printed while running (true/false)
+   * @default true
+   */
+  print_command_output?: boolean
 };
 
 export function gradle(task: GradleArgTask, args?: GradleArgs): AndroidLane {
