@@ -39,8 +39,9 @@ export function fastlane(platformDirectory: string, task: string) {
     // child_process.execSync('cd ' + jetpack.cwd())
     const cwd = shell.pwd().stdout
     try {
-      console.log('Execute fastlane in directory:', cwd)
-      child_process.execSync(`cd ${platformDirectory} && bundle exec fastlane ${task}`.trim(), { stdio: 'inherit' })
+      const command = `bundle exec fastlane ${task}`.trim()
+      console.log('Execute fastlane in directory:', cwd, `with command: ${command}`)
+      child_process.execSync(`cd ${platformDirectory} && ${command}`.trim(), { stdio: 'inherit' })
     } catch (e) {
       throw e
     } finally {

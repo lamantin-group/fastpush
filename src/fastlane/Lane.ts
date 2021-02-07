@@ -5,5 +5,5 @@ export type Lane = {
 
 export type Argument = {
   name: string
-  value: string
+  value: string | Record<string, string>
 }

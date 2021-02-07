@@ -5087,6 +5087,11 @@ ts-node@^8.6.2:
     source-map-support "^0.5.6"
     yn "3.1.1"
 
+ts-pattern@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ts-pattern/-/ts-pattern-2.1.1.tgz#bd30a98e2b0a2517c0544ed6fd45ed3e566c38e3"
+  integrity sha512-2SavUq/QMgB9nVjcD8r5QdUK6ELrO7VYJV1RGmvv3XkxAK8tCdEBgXoQtY47YBaDhRNh4NiiEdTQzJRB8jq+KA==
+
 tslib@^1.8.1, tslib@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"

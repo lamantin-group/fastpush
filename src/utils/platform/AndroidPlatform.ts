@@ -46,14 +46,12 @@ export class AndroidPlatform implements PlatformActions {
 
   async getBuildNumber(): Promise<number> {
     const json = await g2js.parseFile(this.buildGradlePath)
-    ui.message(`getBuildNumber: this.buildGradlePath ${this.buildGradlePath} json = ${json}`)
     const versionCode = parseInt(json.android.defaultConfig.versionCode)
     return versionCode
   }
 
   async getVersionName(): Promise<string> {
     const json = await g2js.parseFile(this.buildGradlePath)
-    ui.message(`getVersionName: this.buildGradlePath ${this.buildGradlePath} json = ${json}`)
     const versionName = json.android.defaultConfig.versionName
     return versionName
   }
