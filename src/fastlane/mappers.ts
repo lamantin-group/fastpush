@@ -47,6 +47,9 @@ export function mapObjectToArgs(object: Record<string, any>): Argument[] {
         .with('object', () => {
           return object[key]
         })
+        .with('boolean', () => {
+          return object[key]
+        })
         .otherwise(() => {
           throw `Value ${object[key]} of ${key} should not to be a ${typeof object[key]}`
         })
