@@ -1,6 +1,6 @@
 {
   "name": "@lamantin/fastpush",
-  "version": "0.0.64",
+  "version": "0.0.65",
   "description": "Typed fastlane frontend for pushing builds to store",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -13,7 +13,7 @@
     "react-native"
   ],
   "bin": {
-    "fastpush": "./build/src/cli/index.js"
+    "fastpush": "build/src/cli/index.js"
   },
   "private": false,
   "repository": {
