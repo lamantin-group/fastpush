@@ -48,6 +48,17 @@ export class IOSPlatform implements PlatformActions {
   }
 
   /**
+   * Execute `xcrun agvtool next-version -all` for increment build number
+   * @returns [oldBuildNumber, newBuildNumber]
+   */
+  async setBuildNumber(buildNumber: number): Promise<[number, number]> {
+    const oldBuildNumber = await this.getBuildNumber()
+    this.exec(`xcrun agvtool new-version -all ${buildNumber}`)
+
+    return [oldBuildNumber, buildNumber]
+  }
+
+  /**
    * Execute `xcrun agvtool what-version` inside ios directory and get parsed result.
    * Be sure, that you enable `agvtool` for your project https://dzone.com/articles/agvtool-automating-ios-build-and-version-numbers
    */

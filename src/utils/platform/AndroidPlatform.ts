@@ -70,6 +70,14 @@ export class AndroidPlatform implements PlatformActions {
     return [oldVersion, newVersion]
   }
 
+  async setBuildNumber(buildNumber: number): Promise<[number, number]> {
+    const oldBuildNumber = await this.getBuildNumber()
+    this.changeField('versionCode', `${buildNumber}`)
+    const newBuildNumber = await this.getBuildNumber()
+
+    return [oldBuildNumber, newBuildNumber]
+  }
+
   private changeField(field: string, value: string) {
     const file = jetpack.read(this.buildGradlePath)
     const regexp = new RegExp(`${field}.*`)

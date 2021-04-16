@@ -12,6 +12,7 @@ export interface PlatformActions {
   getVersionName(): Promise<string>
   setVersionName(newVersion: Version): Promise<[Version, Version]>
   incrementBuildNumber(): Promise<[number, number]>
+  setBuildNumber(newBuildNumber: number): Promise<[number, number]>
   getBuildNumber(): Promise<number>
   // fastlane(lanes: Lane): Promise<void>
 
