@@ -1,4 +1,5 @@
 import { match } from 'ts-pattern'
+import { ui } from '../ui'
 import { Lane, Argument } from './Lane'
 
 export function mapLanesToString(lanes: Lane[]) {
@@ -13,7 +14,11 @@ export function mapLanesToString(lanes: Lane[]) {
 
           return `${arg.name}: ${value}`
         }
-        return `${arg.name}: "${arg.value}"`
+        if (arg.value.startsWith('ENV[')) {
+          return `${arg.name}: ${arg.value}`
+        } else {
+          return `${arg.name}: "${arg.value}"`
+        }
       }) || ''
     if (args) {
       return `${lane.name}(${args})`
