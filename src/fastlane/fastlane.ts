@@ -15,11 +15,15 @@ export function fastlane(platformDirectory: string, task: string) {
   const importLine = `import '${contextFilePath}'`
 
   if (fastfileOriginal.includes('Context.rb')) {
-    ui.message(`Fastfile ${contextFilePath} already contains Context.rb`)
-  } else {
-    const fastfileModifyed = `${importLine}\n${fastfileOriginal}`
-    jetpack.write(fastfilePath, fastfileModifyed)
+    ui.message(`Fastfile ${contextFilePath} already contains Context.rb. Remove first line`)
+    fastfileOriginal
+      .split('\n')
+      .slice(1)
+      .join('\n')
   }
+
+  const fastfileModifyed = `${importLine}\n${fastfileOriginal}`
+  jetpack.write(fastfilePath, fastfileModifyed)
 
   function revertChanges() {
     jetpack.write(fastfilePath, fastfileOriginal)
