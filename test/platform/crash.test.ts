@@ -1,20 +1,10 @@
 import jetpack from 'fs-jetpack'
-import {
-  android,
-  gradle,
-  GradleArgs,
-  gym,
-  ios,
-  match as appleMatch,
-  pilot,
-  supply,
-  SupplyArgs,
-} from '../../src/fastlane'
+import { ios } from '../../src/fastlane'
 
 const iosProjectPath = jetpack.cwd('test/assets').path()
 
 describe('ios', () => {
-  test('when lane crash it should crash caller', () => {
+  test('when lane crash it should throw native js error', () => {
     let crashed = false
     try {
       ios(
