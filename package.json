@@ -30,7 +30,7 @@
     "start:help": "ts-node ./src/cli/index.ts -h",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "start:ios": "ts-node ./src/index.ts ios --track beta",
-    "test": "mocha -r ts-node/register test/**/*.ts"
+    "test": "jest"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -58,7 +58,7 @@
     "@types/chai": "^4.2.8",
     "@types/commander": "^2.12.2",
     "@types/inquirer": "^6.5.0",
-    "@types/jest": "^25.1.1",
+    "@types/jest": "^26.0.23",
     "@types/node-telegram-bot-api": "^0.40.2",
     "@types/shelljs": "^0.8.6",
     "@typescript-eslint/eslint-plugin": "2.19.0",
@@ -71,13 +71,12 @@
     "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "husky": "^4.2.1",
-    "jest": "25.1.0",
-    "mocha": "^7.0.1",
+    "jest": "27.0.3",
     "nodemon": "2.0.2",
     "nyc": "^15.0.0",
     "prettier": "1.19.1",
-    "ts-jest": "25.2.0",
-    "ts-node": "^8.6.2",
-    "typescript": "4.1.3"
+    "ts-jest": "27.0.2",
+    "ts-node": "10.0.0",
+    "typescript": "4.3.2"
   }
 }

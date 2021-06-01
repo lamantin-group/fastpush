@@ -1,11 +1,7 @@
-import '/Users/whalemare/dev/fitbase/fastpush/assets/Context.rb'
-
 default_platform(:ios)
 
-platform :ios do
-  desc 'crash'
-  lane :crash do
-    print "Hello from method crash"
-    raise "Test exception"
-  end
+desc 'crash'
+lane :crasher do
+  print "Hello from method crash"
+  raise "Test exception"
 end
