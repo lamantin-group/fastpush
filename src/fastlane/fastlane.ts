@@ -2,8 +2,9 @@ import child_process from 'child_process'
 import shell from 'shelljs'
 import jetpack = require('fs-jetpack')
 import { FastlaneError } from './FastlaneError'
+import { promisify } from 'util'
 
-export function fastlane(platformDirectory: string, task: string) {
+export async function fastlane(platformDirectory: string, task: string) {
   const fastfilePath = platformDirectory + '/fastlane/Fastfile'
 
   const contextFilePath = jetpack
@@ -39,11 +40,16 @@ export function fastlane(platformDirectory: string, task: string) {
   const cwd = shell.pwd().stdout
   try {
     const command = `bundle exec fastlane ${task}`.trim()
-    console.log('Execute fastlane in directory:', cwd, `with command: ${command}`)
-    child_process.execSync(`${command}`.trim(), { stdio: 'pipe', cwd: platformDirectory })
+    console.log('Execute fastlane in directory:', cwd, `with command:\n${command}\n`)
+    const exec = promisify(child_process.exec)
+    const promise = exec(`cd ${cwd} && ${command}`.trim())
+    promise.child.stdout.pipe(process.stdout)
+    promise.child.stderr.pipe(process.stderr)
+    promise.child.stdin.pipe(process.stdin)
+    await promise
     revertChanges()
   } catch (e) {
     revertChanges()
-    throw new FastlaneError(e.message, e.status)
+    throw new FastlaneError(e.message, e.status || e.code)
   }
 }

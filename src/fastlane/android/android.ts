@@ -14,5 +14,5 @@ export function android(lanes: AndroidLane[], projectDirectory: string): void
 
 export function android(lanes: AndroidLane[], projectDirectory: string = jetpack.cwd()) {
   const command = mapLanesToString(lanes)
-  fastlane(projectDirectory + '/android', `context ${command}`)
+  return fastlane(projectDirectory + '/android', `context ${command}`)
 }
