@@ -135,9 +135,9 @@ async function distribute(options: FastpushResult, platform: PlatformActions, ve
   ui.success(`Update ${platform.type} versionName [${oldVersion}] -> [${newVersion}]`)
 
   if (platform.type === 'ios') {
-    ios(hooks.provideIOSLanes(options), options.project)
+    await ios(hooks.provideIOSLanes(options), options.project)
   } else if (platform.type === 'android') {
-    android(hooks.provideAndroidLanes(options), options.project)
+    await android(hooks.provideAndroidLanes(options), options.project)
   } else {
     throw `Unexpected platform type ${platform.type}`
   }

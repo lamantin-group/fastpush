@@ -23,14 +23,12 @@ export async function fastlane(platformDirectory: string, task: string) {
   jetpack.write(fastfilePath, fastfileModifyed)
 
   function revertChanges() {
-    jetpack.write(fastfilePath, fastfileOriginal)
+    try {
+      jetpack.write(fastfilePath, fastfileOriginal)
+    } catch (e) {
+      console.warn('Unable revert changes', e)
+    }
   }
-
-  process.on('exit', revertChanges)
-  process.on('disconnect', revertChanges)
-  process.on('uncaughtException', revertChanges)
-  process.on('unhandledRejection', revertChanges)
-
   // shell.exec(`bundle install`)
 
   // TODO: validate user input for security policy
@@ -41,13 +39,17 @@ export async function fastlane(platformDirectory: string, task: string) {
   try {
     const command = `bundle exec fastlane ${task}`.trim()
     console.log('Execute fastlane in directory:', cwd, `with command:\n${command}\n`)
+
     const exec = promisify(child_process.exec)
-    const promise = exec(`cd ${cwd} && ${command}`.trim())
+    const promise = exec(`cd ${cwd} && ${command}`.trim(), { maxBuffer: Number.POSITIVE_INFINITY })
     promise.child.stdout.pipe(process.stdout)
     promise.child.stderr.pipe(process.stderr)
     promise.child.stdin.pipe(process.stdin)
+    promise.child.on('exit', revertChanges)
+    promise.child.on('disconnect', revertChanges)
+    promise.child.on('uncaughtException', revertChanges)
+    promise.child.on('unhandledRejection', revertChanges)
     await promise
-    revertChanges()
   } catch (e) {
     revertChanges()
     throw new FastlaneError(e.message, e.status || e.code)

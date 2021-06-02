@@ -7,10 +7,10 @@ export type IOSLane = Lane & {
   type: 'ios'
 }
 
-export function ios(lanes: IOSLane[]): void
-export function ios(lanes: IOSLane[], projectDirectory: string): void
+export async function ios(lanes: IOSLane[]): Promise<void>
+export async function ios(lanes: IOSLane[], projectDirectory: string): Promise<void>
 
 export function ios(lanes: IOSLane[], projectDirectory: string = jetpack.cwd()) {
   const command = mapLanesToString(lanes)
-  fastlane(projectDirectory + '/ios', `context ${command}`)
+  return fastlane(projectDirectory + '/ios', `context ${command}`)
 }

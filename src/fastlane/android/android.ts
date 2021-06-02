@@ -9,10 +9,10 @@ export type AndroidLane = {
   type: 'android'
 } & Lane
 
-export function android(lanes: AndroidLane[]): void
-export function android(lanes: AndroidLane[], projectDirectory: string): void
+export async function android(lanes: AndroidLane[]): Promise<void>
+export async function android(lanes: AndroidLane[], projectDirectory: string): Promise<void>
 
-export function android(lanes: AndroidLane[], projectDirectory: string = jetpack.cwd()) {
+export async function android(lanes: AndroidLane[], projectDirectory: string = jetpack.cwd()) {
   const command = mapLanesToString(lanes)
   return fastlane(projectDirectory + '/android', `context ${command}`)
 }
