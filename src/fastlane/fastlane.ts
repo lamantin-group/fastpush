@@ -1,7 +1,6 @@
 import child_process from 'child_process'
 import shell from 'shelljs'
 import jetpack = require('fs-jetpack')
-import { ui } from '../ui'
 import { FastlaneError } from './FastlaneError'
 
 export function fastlane(platformDirectory: string, task: string) {
@@ -12,16 +11,11 @@ export function fastlane(platformDirectory: string, task: string) {
     .cwd('../../assets')
     .path('Context.rb')
   // const ruby = jetpack.read(rubyPath)
-  const fastfileOriginal = jetpack.read(fastfilePath)
-
-  let fastfilyModifyed = fastfileOriginal
-  while (fastfilyModifyed.includes('Context.rb')) {
-    const start = fastfilyModifyed.indexOf('Context.rb')
-    const end = fastfilyModifyed.indexOf('\n', start)
-    const substr = fastfilyModifyed.substring(start, end)
-    ui.message(`Fastfile ${contextFilePath} already contains Context.rb, remove line: ${substr}`)
-    fastfilyModifyed = fastfilyModifyed.substring(end)
-  }
+  const fastfileOriginal = jetpack
+    .read(fastfilePath)
+    .split('\n')
+    .filter(it => !it.includes('Context.rb'))
+    .join('\n')
 
   const importLine = `import '${contextFilePath}'`
   const fastfileModifyed = `${importLine}\n${fastfileOriginal}`
