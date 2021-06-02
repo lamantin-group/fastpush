@@ -1,5 +1,4 @@
 import child_process from 'child_process'
-import shell from 'shelljs'
 import jetpack = require('fs-jetpack')
 import { FastlaneError } from './FastlaneError'
 import { promisify } from 'util'
@@ -11,7 +10,7 @@ export async function fastlane(platformDirectory: string, task: string) {
     .cwd(__dirname)
     .cwd('../../assets')
     .path('Context.rb')
-  // const ruby = jetpack.read(rubyPath)
+
   const fastfileOriginal = jetpack
     .read(fastfilePath)
     .split('\n')
@@ -35,13 +34,12 @@ export async function fastlane(platformDirectory: string, task: string) {
 
   // shelljs not supported interactive input/output so we should use child_process
   // child_process.execSync('cd ' + jetpack.cwd())
-  const cwd = shell.pwd().stdout
   try {
     const command = `bundle exec fastlane ${task}`.trim()
-    console.log('Execute fastlane in directory:', cwd, `with command:\n${command}\n`)
+    console.log('Execute fastlane in directory:', platformDirectory, `with command:\n${command}\n`)
 
     const exec = promisify(child_process.exec)
-    const promise = exec(`cd ${cwd} && ${command}`.trim(), { maxBuffer: Number.POSITIVE_INFINITY })
+    const promise = exec(`cd ${platformDirectory} && ${command}`.trim(), { maxBuffer: Number.POSITIVE_INFINITY })
     promise.child.stdout.pipe(process.stdout)
     promise.child.stderr.pipe(process.stderr)
     promise.child.stdin.pipe(process.stdin)
