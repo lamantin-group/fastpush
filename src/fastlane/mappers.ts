@@ -1,23 +1,38 @@
 import { match } from 'ts-pattern'
 import { Lane, Argument } from './Lane'
 
+function mapObject(arg: Argument) {
+  return `{${Object.keys(arg.value).map(keyParam => {
+    const valueParam = arg.value[keyParam]
+    if (Array.isArray(valueParam)) {
+      return `"${keyParam}" => ${valueParam.map(arg => {
+        return arg
+      })}`
+    } else if (typeof valueParam === 'object') {
+      return `"${keyParam}" => ${mapObject(valueParam)}`
+    }
+
+    return `"${keyParam}" => "${valueParam}"`
+  })}}`
+}
+
+function mapArgumentToString(arg: Argument) {
+  if (typeof arg.value === 'object') {
+    if (Array.isArray(arg.value)) {
+      return `${arg.name}: {${arg.value.map(mapArgumentToString)}}`
+    } else {
+      return `${arg.name}: ${mapObject(arg)}`
+    }
+  } else if (typeof arg.value === 'string' && arg.value.startsWith('ENV[')) {
+    return `${arg.name}: ${arg.value}`
+  } else {
+    return `${arg.name}: "${arg.value}"`
+  }
+}
+
 export function mapLanesToString(lanes: Lane[]) {
   const laneString = lanes.map(lane => {
-    const args =
-      lane.args?.map(arg => {
-        if (typeof arg.value === 'object') {
-          const value = `{${Object.keys(arg.value).map(keyParam => {
-            const valueParam = arg.value[keyParam]
-            return `"${keyParam}" => "${valueParam}"`
-          })}}`
-
-          return `${arg.name}: ${value}`
-        } else if (typeof arg.value === 'string' && arg.value.startsWith('ENV[')) {
-          return `${arg.name}: ${arg.value}`
-        } else {
-          return `${arg.name}: "${arg.value}"`
-        }
-      }) || ''
+    const args = lane.args?.map(mapArgumentToString) || ''
     if (args) {
       return `${lane.name}(${args})`
     } else {
@@ -48,7 +63,7 @@ export function mapObjectToArgs(object: Record<string, any>): Argument[] {
           return object[key]
         })
         .with('object', () => {
-          return object[key]
+          return mapObjectToArgs(object[key])
         })
         .with('boolean', () => {
           return object[key]

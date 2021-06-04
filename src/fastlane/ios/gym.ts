@@ -57,9 +57,13 @@ export type GymArgs = {
   build_path?: string
 
   /**
-   * The path to the created archive	
+   * The path to the created archive
    */
   archive_path?: string
+
+  export_options?: {
+    provisioningProfiles?: {[key in string]: string}
+  }
 
   /**
    * The configuration to use when building the app. Defaults to 'Release'

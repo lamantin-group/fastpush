@@ -1,4 +1,4 @@
-import { gradle, mapLanesToString } from '../src'
+import { gradle, gym, mapLanesToString } from '../src'
 import { expect } from 'chai'
 
 describe('gradle clean', () => {
@@ -34,5 +34,21 @@ describe('gradle clean', () => {
         }),
       ]),
     ).to.equal(`lanes:'[gradle(task: "clean",system_properties: {"name" => "value"})]'`)
+  })
+
+  it('gym with nested args', () => {
+    const output = mapLanesToString([
+      gym({
+        export_options: {
+          provisioningProfiles: {
+            'com.myapp': 'Provisioning Profile',
+          },
+        },
+      }),
+    ])
+
+    expect(output).to.equal(
+      `lanes:'[gym(export_options: {provisioningProfiles: {com.myapp: "Provisioning Profile"}})]'`,
+    )
   })
 })
