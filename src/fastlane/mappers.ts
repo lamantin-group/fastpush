@@ -19,14 +19,14 @@ function mapObject(arg: Argument) {
 function mapArgumentToString(arg: Argument) {
   if (typeof arg.value === 'object') {
     if (Array.isArray(arg.value)) {
-      return `${arg.name}: {${arg.value.map(mapArgumentToString)}}`
+      return `"${arg.name}": {${arg.value.map(mapArgumentToString)}}`
     } else {
-      return `${arg.name}: ${mapObject(arg)}`
+      return `"${arg.name}": ${mapObject(arg)}`
     }
   } else if (typeof arg.value === 'string' && arg.value.startsWith('ENV[')) {
-    return `${arg.name}: ${arg.value}`
+    return `"${arg.name}": ${arg.value}`
   } else {
-    return `${arg.name}: "${arg.value}"`
+    return `"${arg.name}": "${arg.value}"`
   }
 }
 
