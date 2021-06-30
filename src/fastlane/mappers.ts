@@ -23,7 +23,11 @@ function mapArgumentToString(arg: Argument) {
     } else {
       return `"${arg.name}": ${mapObject(arg)}`
     }
-  } else if (typeof arg.value === 'string' && arg.value.startsWith('ENV[')) {
+  } else if (
+    (typeof arg.value === 'string' && arg.value.startsWith('ENV[')) ||
+    typeof arg.value === 'boolean' ||
+    arg.value === 'nil'
+  ) {
     return `"${arg.name}": ${arg.value}`
   } else {
     return `"${arg.name}": "${arg.value}"`

@@ -5,5 +5,5 @@ export type Lane = {
 
 export type Argument = {
   name: string
-  value: string | Argument[]
+  value: string | number | boolean | Argument[] | 'nil'
 }
