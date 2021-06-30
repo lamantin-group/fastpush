@@ -18,8 +18,5 @@ export async function read(title: string, fallback = '') {
     message: title,
     default: fallback,
   })
-
-  inquirer.prompt({})
-
   return result.answer as string
 }
