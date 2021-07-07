@@ -12,7 +12,7 @@ function mapObject(arg: Argument) {
       return `"${keyParam}" => ${mapObject(valueParam)}`
     }
 
-    return `"${keyParam}" => "${valueParam}"`
+    return `"${keyParam}" => "${normalizeValue(valueParam)}"`
   })}}`
 }
 
@@ -28,9 +28,9 @@ function mapArgumentToString(arg: Argument) {
     typeof arg.value === 'boolean' ||
     arg.value === 'nil'
   ) {
-    return `"${arg.name}": ${arg.value}`
+    return `"${arg.name}": ${normalizeValue(arg.value)}`
   } else {
-    return `"${arg.name}": "${arg.value}"`
+    return `"${arg.name}": "${normalizeValue(arg.value)}"`
   }
 }
 
@@ -81,4 +81,16 @@ export function mapObjectToArgs(object: Record<string, any>): Argument[] {
         value: value,
       }
     })
+}
+
+function replaceAll<T = string | number | boolean>(input: T, search: string, replace: string) {
+  if (typeof input === 'string') {
+    return input.split(search).join(replace)
+  }
+
+  return input
+}
+
+function normalizeValue(value: string | number | boolean) {
+  return replaceAll(value, `"`, `\"`)
 }
